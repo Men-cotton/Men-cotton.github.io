@@ -32,3 +32,11 @@ h1 {
     color: skyblue;
     text-shadow: 3px 3px 1px darkblue;
 }
+
+ul {
+    list-style-type: none;
+}
+
+div {
+    text-align:center;
+}
