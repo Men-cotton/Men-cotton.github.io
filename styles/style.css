@@ -3,11 +3,6 @@ html {
     font-family: 'Open Sans', sans-serif;
 }
 
-h1 {
-    font-size: 60px;
-    text-align: center;
-}
-
 p,
 li {
     font-size: 16px;
@@ -26,17 +21,68 @@ body {
     padding: 0 20px 20px 20px;
 }
 
-h1 {
-    margin: 0;
-    padding: 20px 0;
+.welcome {
+    font-size: 64px;
+    text-align: center;
+    padding: 20px 30px;
     color: skyblue;
     text-shadow: 3px 3px 1px darkblue;
 }
 
+h2 {
+    font-weight: bolder;
+}
+
+h3 {
+    font-weight: normal;
+    font-size: 32px;
+}
+
+h4 {
+    font-weight: normal;
+    text-align: left;
+}
+
 ul {
     list-style-type: none;
+    text-align: left;
 }
 
 div {
-    text-align:center;
+    text-align: center;
+}
+
+header {
+    padding: 10px;
+    background: aliceblue;
+    display: inline-block;
+}
+
+.link-title {
+    display: inline-block;
+    vertical-align: top;
+    padding: 0 30px;
+}
+
+.icon {
+    padding-left: 30px;
+    font-size: 18px;
+    display: block;
+    text-align: left;
+    line-height: 25px;
+}
+
+.site {
+    display: block;
+    font-size: 18px;
+    text-align: left;
+}
+
+.timeline {
+    padding-top: 50px;
+}
+
+.menu {
+    vertical-align: top;
+    padding-top: 30px;
 }
