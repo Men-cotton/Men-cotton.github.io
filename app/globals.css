@@ -71,7 +71,7 @@ h2 { margin: 0 0 30px; font-size: 1.45rem; line-height: 1.4; letter-spacing: -.0
 .recognition a:hover, .recognition a:focus-visible { text-decoration-color: currentColor; }
 .recognition a span[aria-hidden="true"] { display: none; }
 .contact p { margin: 0 0 12px; color: var(--muted); }
-.email { font-size: 1.1rem; }
+.email { color: inherit; }
 footer { min-height: 88px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); color: var(--muted); font-size: .8rem; }
 
 @media (max-width: 700px) {

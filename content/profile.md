@@ -8,13 +8,14 @@ lab_url: https://www.ac2.scrc.iir.isct.ac.jp/
 year: 修士1年
 summary: AC2 Labで、Cerebras WSE上のグラフニューラルネットワーク学習の高速化を研究しています。LLVM projectでは、MLIRとClangIRの不具合修正に加え、ClangIRのOpenCL対応に取り組んでいます。
 keywords_label: 分野
-keywords: 高性能計算（HPC） / Cerebras WSE / GNN / GPU / 機械学習の高速化 / AI for Science / デジタルツイン / 異種計算・オフロード / コンパイラ / LLVM / MLIR / ClangIR / OpenCL
+keywords: 高性能計算（HPC） / Cerebras WSE / GNN / GPU / 機械学習の高速化 / AI for Science / デジタルツイン / コンパイラ / LLVM / MLIR / ClangIR / OpenCL
 email: watanuki@ac2.scrc.iir.isct.ac.jp
 github: https://github.com/Men-cotton
 linkedin: https://www.linkedin.com/in/mencotton/
 x: https://x.com/men_cotton
 atcoder: https://atcoder.jp/users/mencotton
-contact: 研究、OSS、インターンシップに関する連絡はメールでお願いします。
+contact_before: 研究、OSS、インターンシップに関する連絡は
+contact_after: へお願いします。
 casual_contact: 雑談や短い質問には、
 casual_contact_link: Xのメンションもどうぞ
 ---
@@ -27,17 +28,23 @@ casual_contact_link: Xのメンションもどうぞ
 Cerebras WSEを用いたGNN学習を題材に、計算、通信、メモリの処理時間を分析し、学習パイプラインの高速化に取り組んでいます。将来的には、WSE向けカーネルを高水準言語から生成するコンパイラの開発を目指しています。
 
 ### LLVM projectでのコンパイラ開発
-MLIRとClangIRを中心に、クラッシュの修正、テストの追加、loweringの実装を行っています。最近は、OpenCLカーネルの引数メタデータをCIR関数へ付与し、LLVM IRへloweringする処理に取り組んでいます。
+ClangIRのOpenCL対応として、OpenCLカーネルの引数メタデータをCIR関数へ付与し、LLVM IRへloweringする処理に取り組んでいます。MLIRとClangIRでは、クラッシュの修正、テストの追加、loweringの実装も行っています。
 
-## 主な実績
+## 研究実績
 
-### LLVM projectでの開発実績
-MLIRとClangIRのクラッシュ修正に加え、OpenCLコードをClangIRで扱うための実装に取り組んでいます。issueの整理とテストコードのレビューにも参加しています。
-[マージ済みPR](https://github.com/llvm/llvm-project/pulls?q=is%3Apr+author%3AMen-cotton+is%3Amerged+sort%3Aupdated-desc)
+### SWoPP 2026での研究発表
+SWoPP 2026 HPC-4（2026年8月6日）で「高水準ワークフローを用いたCerebras CS-3上の不規則GNN学習の実行特性分析」を発表します。指導教員の小林諒平先生との共同発表です。
+[プログラム](https://swopp.github.io/2026/program/)
 
 ### Cerebras WSE向けGNN実装
 ウェハスケールプロセッサ上でGNN学習パイプラインを実装しました。学部卒業研究から継続して、性能分析と高速化を行っています。
 [リポジトリ](https://github.com/Men-cotton/gnn-modelzoo-fork)
+
+## 開発実績
+
+### LLVM projectでの開発実績
+OpenCLコードをClangIRで扱うため、カーネル引数メタデータをCIR関数へ付与し、LLVM IRへloweringする処理に取り組んでいます。MLIRとClangIRのクラッシュ修正、issueの整理、テストコードのレビューにも参加しています。
+[マージ済みPR](https://github.com/llvm/llvm-project/pulls?q=is%3Apr+author%3AMen-cotton+is%3Amerged+sort%3Aupdated-desc)
 
 ### ClangIRによるPolyBenchの変換
 PolyBenchのプログラムをClangIRでloweringし、CPU対応の状況と生成コードを調査しました。
@@ -45,10 +52,6 @@ PolyBenchのプログラムをClangIRでloweringし、CPU対応の状況と生�
 
 ### Fixstarsインターンシップ
 CUDAを用いたステレオマッチングのパイプラインを構築しました。Nsight SystemsとNsight Computeで処理時間を測定し、ボトルネックとなる処理を高速化しました。
-
-### SWoPP 2026での研究発表
-SWoPP 2026 HPC-4（2026年8月6日）で「高水準ワークフローを用いたCerebras CS-3上の不規則GNN学習の実行特性分析」を発表します。指導教員の小林諒平先生との共同発表です。
-[プログラム](https://swopp.github.io/2026/program/)
 
 ## 受賞・成績
 
@@ -63,4 +66,6 @@ SWoPP 2026 HPC-4（2026年8月6日）で「高水準ワークフローを用い�
 - AI for Scienceと研究開発の自動化
 - MLIRを利用するプログラミング言語
 - 自律ロボット
-- ダンスゲーム、蒙古タンメン中本、ウイスキー
+- ダンスゲーム
+- 蒙古タンメン中本
+- ウイスキー

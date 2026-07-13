@@ -8,13 +8,14 @@ lab_url: https://www.ac2.scrc.iir.isct.ac.jp/
 year: First-year master's student
 summary: I study the performance of graph neural network training on the Cerebras WSE at AC2 Lab. I also contribute to MLIR and ClangIR in the LLVM Project, including recent work on OpenCL support in ClangIR.
 keywords_label: Fields
-keywords: High-Performance Computing (HPC) / Cerebras WSE / GNN / GPU Computing / Machine Learning Acceleration / AI for Science / Digital Twins / Heterogeneous Systems / Offloading / Compilers / LLVM / MLIR / ClangIR / OpenCL
+keywords: High-Performance Computing (HPC) / Cerebras WSE / GNN / GPU Computing / Machine Learning Acceleration / AI for Science / Digital Twins / Compilers / LLVM / MLIR / ClangIR / OpenCL
 email: watanuki@ac2.scrc.iir.isct.ac.jp
 github: https://github.com/Men-cotton
 linkedin: https://www.linkedin.com/in/mencotton/
 x: https://x.com/men_cotton
 atcoder: https://atcoder.jp/users/mencotton
-contact: Please use email for research, open-source software, and internship inquiries.
+contact_before: For research, open-source software, and internship inquiries, contact me at
+contact_after: .
 casual_contact: For casual conversation or short questions,
 casual_contact_link: X mentions are also welcome
 ---
@@ -27,17 +28,23 @@ casual_contact_link: X mentions are also welcome
 I analyze computation, communication, and memory behavior in GNN training on the Cerebras WSE and work on improving the performance of the training pipeline. My long-term goal is to build a compiler that generates WSE kernels from a high-level language.
 
 ### Contributions to the LLVM Project
-I work primarily on MLIR and ClangIR, including crash fixes, tests, and lowering implementations. My recent work connects OpenCL with ClangIR by attaching kernel argument metadata to CIR functions and lowering it to LLVM IR.
+My recent work connects OpenCL with ClangIR by attaching kernel argument metadata to CIR functions and lowering it to LLVM IR. I also work on crash fixes, tests, and lowering implementations in MLIR and ClangIR.
 
-## Selected work
+## Research output
 
-### Contributions to the LLVM Project
-I contribute fixes and implementations to MLIR and ClangIR, including support for processing OpenCL code through ClangIR. I also help triage issues and review tests.
-[Merged PRs](https://github.com/llvm/llvm-project/pulls?q=is%3Apr+author%3AMen-cotton+is%3Amerged+sort%3Aupdated-desc)
+### SWoPP 2026 presentation
+I will present “Execution Characteristics Analysis of Irregular GNN Training on Cerebras CS-3 Using a High-Level Workflow” in the SWoPP 2026 HPC-4 session on August 6, 2026. This is joint work with my advisor, Prof. Ryohei Kobayashi.
+[Program](https://swopp.github.io/2026/program/)
 
 ### GNN implementation for Cerebras WSE
 I implemented a GNN training pipeline for a wafer-scale processor. The project began as my undergraduate thesis and continues through my master's research.
 [Repository](https://github.com/Men-cotton/gnn-modelzoo-fork)
+
+## Software and engineering
+
+### Contributions to the LLVM Project
+To process OpenCL code through ClangIR, I work on attaching kernel argument metadata to CIR functions and lowering it to LLVM IR. I also contribute crash fixes in MLIR and ClangIR, triage issues, and review tests.
+[Merged PRs](https://github.com/llvm/llvm-project/pulls?q=is%3Apr+author%3AMen-cotton+is%3Amerged+sort%3Aupdated-desc)
 
 ### Lowering PolyBench with ClangIR
 I lowered PolyBench programs with ClangIR to examine its current CPU support and generated code.
@@ -45,10 +52,6 @@ I lowered PolyBench programs with ClangIR to examine its current CPU support and
 
 ### Fixstars internship
 I built a CUDA stereo-matching pipeline, measured its runtime with Nsight Systems and Nsight Compute, and optimized bottleneck operations.
-
-### SWoPP 2026 presentation
-I will present “Execution Characteristics Analysis of Irregular GNN Training on Cerebras CS-3 Using a High-Level Workflow” in the SWoPP 2026 HPC-4 session on August 6, 2026. This is joint work with my advisor, Prof. Ryohei Kobayashi.
-[Program](https://swopp.github.io/2026/program/)
 
 ## Recognition
 
@@ -63,4 +66,6 @@ I will present “Execution Characteristics Analysis of Irregular GNN Training o
 - AI for Science and research automation
 - Programming languages built with MLIR
 - Autonomous robots
-- Dance games, Mongolian Tanmen Nakamoto, and whisky
+- Dance games
+- Mongolian Tanmen Nakamoto
+- Whisky
