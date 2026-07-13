@@ -6,7 +6,7 @@ affiliation: 東京科学大学 情報理工学院 数理・計算科学系
 lab: AC2 Lab
 lab_url: https://www.ac2.scrc.iir.isct.ac.jp/
 year: 修士1年
-summary: 大規模AIアクセラレータ上の機械学習の高速化を研究しています。オープンソースのコンパイラ開発にも取り組んでいます。
+summary: 大規模AIアクセラレータ上の機械学習の高速化を研究しています。LLVM projectのコンパイラ開発にも携わっています。
 keywords_label: 分野
 keywords: 高性能計算（HPC） / Cerebras WSE / GNN / GPU / 機械学習の高速化 / AI for Science / デジタルツイン / コンパイラ / LLVM / MLIR / ClangIR / OpenCL
 email: watanuki@ac2.scrc.iir.isct.ac.jp
