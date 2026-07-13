@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import "./globals.css";
 
-const title = "綿貫晃雅 — 高性能計算・コンパイラ";
-const description = "高性能計算、コンパイラ、新興アクセラレータを研究する綿貫晃雅のポートフォリオ。";
+const title = "Akimasa Watanuki — High-Performance Computing and Compilers";
+const description = "Portfolio of Akimasa Watanuki, a researcher working on high-performance computing and compiler infrastructure.";
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description,
     openGraph: {
       type: "website",
-      locale: "ja_JP",
+      locale: "en_US",
       title,
       description,
     },
@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ja">
+    <html lang="en">
       <body>{children}</body>
     </html>
   );
