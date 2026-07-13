@@ -6,7 +6,7 @@ affiliation: 東京科学大学 情報理工学院 数理・計算科学系
 lab: AC2 Lab
 year: 修士1年
 summary: AC2 Labで、Cerebras WSE上のグラフニューラルネットワーク学習の高速化を研究しています。LLVM projectでは、MLIRとClangIRの不具合修正や実装に取り組んでいます。
-email: mencotton0410@gmail.com
+email: watanuki@ac2.scrc.iir.isct.ac.jp
 github: https://github.com/Men-cotton
 linkedin: https://www.linkedin.com/in/mencotton/
 x: https://x.com/men_cotton
