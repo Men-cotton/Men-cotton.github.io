@@ -137,7 +137,7 @@ export function ProfilePage({ markdown, locale }: { markdown: string; locale: Lo
       </section>
 
       <section className="section two-column">
-        <div>
+        <div className="recognition">
           <h2>{copy.sections[2]}</h2>
           <ul>{achievements.map((item) => <li key={item.label}>{item.link ? <ExternalLink href={item.link}>{item.label}</ExternalLink> : item.label}</li>)}</ul>
         </div>
