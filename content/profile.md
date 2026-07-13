@@ -16,7 +16,7 @@ x: https://x.com/men_cotton
 atcoder: https://atcoder.jp/users/mencotton
 contact: 研究、OSS、インターンシップに関する連絡はメールでお願いします。
 casual_contact: 雑談や短い質問には、
-casual_contact_link: Xのメンションも利用できます
+casual_contact_link: Xのメンションもどうぞ
 ---
 
 # Akimasa Watanuki
@@ -47,7 +47,7 @@ PolyBenchのプログラムをClangIRでloweringし、CPU対応の状況と生�
 CUDAを用いたステレオマッチングのパイプラインを構築しました。Nsight SystemsとNsight Computeで処理時間を測定し、ボトルネックとなる処理を高速化しました。
 
 ### SWoPP 2026での研究発表
-SWoPP 2026 HPC-4（2026年8月6日）の発表題目は「高水準ワークフローを用いたCerebras CS-3上の不規則GNN学習の実行特性分析」です。指導教員の小林諒平先生との共同発表です。
+私は、SWoPP 2026 HPC-4（2026年8月6日）で「高水準ワークフローを用いたCerebras CS-3上の不規則GNN学習の実行特性分析」を発表します。指導教員の小林諒平先生との共同発表です。
 [プログラム](https://swopp.github.io/2026/program/)
 
 ## 受賞・成績

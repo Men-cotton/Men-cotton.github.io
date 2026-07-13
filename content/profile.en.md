@@ -47,7 +47,7 @@ I lowered PolyBench programs with ClangIR to examine its current CPU support and
 I built a CUDA stereo-matching pipeline, measured its runtime with Nsight Systems and Nsight Compute, and optimized bottleneck operations.
 
 ### SWoPP 2026 presentation
-My presentation in the SWoPP 2026 HPC-4 session on August 6, 2026 is titled “Execution Characteristics Analysis of Irregular GNN Training on Cerebras CS-3 Using a High-Level Workflow.” This is joint work with my advisor, Prof. Ryohei Kobayashi.
+I will present “Execution Characteristics Analysis of Irregular GNN Training on Cerebras CS-3 Using a High-Level Workflow” in the SWoPP 2026 HPC-4 session on August 6, 2026. This is joint work with my advisor, Prof. Ryohei Kobayashi.
 [Program](https://swopp.github.io/2026/program/)
 
 ## Recognition
