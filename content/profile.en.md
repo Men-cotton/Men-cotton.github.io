@@ -8,7 +8,7 @@ lab_url: https://www.ac2.scrc.iir.isct.ac.jp/
 year: First-year master's student
 summary: I study the performance of graph neural network training on the Cerebras WSE at AC2 Lab. I also contribute to MLIR and ClangIR in the LLVM Project, including recent work on OpenCL support in ClangIR.
 keywords_label: Fields
-keywords: High-Performance Computing (HPC) / Cerebras WSE / GNN / GPU Computing / Machine Learning Acceleration / AI for Science / Digital Twins / Heterogeneous Computing and Offloading / Compilers / LLVM / MLIR / ClangIR / OpenCL
+keywords: High-Performance Computing (HPC) / Cerebras WSE / GNN / GPU Computing / Machine Learning Acceleration / AI for Science / Digital Twins / Heterogeneous Systems / Offloading / Compilers / LLVM / MLIR / ClangIR / OpenCL
 email: watanuki@ac2.scrc.iir.isct.ac.jp
 github: https://github.com/Men-cotton
 linkedin: https://www.linkedin.com/in/mencotton/

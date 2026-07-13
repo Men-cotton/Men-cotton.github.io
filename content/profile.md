@@ -8,7 +8,7 @@ lab_url: https://www.ac2.scrc.iir.isct.ac.jp/
 year: 修士1年
 summary: AC2 Labで、Cerebras WSE上のグラフニューラルネットワーク学習の高速化を研究しています。LLVM projectでは、MLIRとClangIRの不具合修正に加え、ClangIRのOpenCL対応に取り組んでいます。
 keywords_label: 分野
-keywords: 高性能計算（HPC） / Cerebras WSE / GNN / GPU / 機械学習の高速化 / AI for Science / デジタルツイン / ヘテロジニアスコンピューティング・オフローディング / コンパイラ / LLVM / MLIR / ClangIR / OpenCL
+keywords: 高性能計算（HPC） / Cerebras WSE / GNN / GPU / 機械学習の高速化 / AI for Science / デジタルツイン / 異種計算・オフロード / コンパイラ / LLVM / MLIR / ClangIR / OpenCL
 email: watanuki@ac2.scrc.iir.isct.ac.jp
 github: https://github.com/Men-cotton
 linkedin: https://www.linkedin.com/in/mencotton/
