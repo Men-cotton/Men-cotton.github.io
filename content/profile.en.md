@@ -6,7 +6,7 @@ affiliation: Department of Mathematical and Computing Science, Institute of Scie
 lab: AC2 Lab
 lab_url: https://www.ac2.scrc.iir.isct.ac.jp/
 year: First-year master's student
-summary: I study the performance of graph neural network training on the Cerebras WSE at AC2 Lab. I also contribute to MLIR and ClangIR in the LLVM Project, including recent work on OpenCL support in ClangIR.
+summary: At Institute of Science Tokyo, I study how to accelerate graph neural network (GNN) training on Cerebras WSE, an AI computing system built from an entire silicon wafer. In the LLVM Project, I develop support for representing OpenCL programs in a compiler intermediate representation and fix bugs in existing compiler infrastructure.
 keywords_label: Fields
 keywords: High-Performance Computing (HPC) / Cerebras WSE / GNN / GPU Computing / Machine Learning Acceleration / AI for Science / Digital Twins / Compilers / LLVM / MLIR / ClangIR / OpenCL
 email: watanuki@ac2.scrc.iir.isct.ac.jp

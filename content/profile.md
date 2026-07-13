@@ -6,7 +6,7 @@ affiliation: 東京科学大学 情報理工学院 数理・計算科学系
 lab: AC2 Lab
 lab_url: https://www.ac2.scrc.iir.isct.ac.jp/
 year: 修士1年
-summary: AC2 Labで、Cerebras WSE上のグラフニューラルネットワーク学習の高速化を研究しています。LLVM projectでは、MLIRとClangIRの不具合修正に加え、ClangIRのOpenCL対応に取り組んでいます。
+summary: 東京科学大学で、ウェハ全体を1基のAI向け計算機として使うCerebras WSEを対象に、グラフ構造データを扱う機械学習（GNN）の高速化を研究しています。LLVM projectでは、OpenCLプログラムをコンパイラの中間表現で扱えるようにする開発と、既存機能の不具合修正を行っています。
 keywords_label: 分野
 keywords: 高性能計算（HPC） / Cerebras WSE / GNN / GPU / 機械学習の高速化 / AI for Science / デジタルツイン / コンパイラ / LLVM / MLIR / ClangIR / OpenCL
 email: watanuki@ac2.scrc.iir.isct.ac.jp
