@@ -5,6 +5,8 @@ role: 高性能計算・コンパイラ
 affiliation: 東京科学大学 情報理工学院 数理・計算科学系
 lab: AC2 Lab
 lab_url: https://www.ac2.scrc.iir.isct.ac.jp/
+advisor: 小林諒平先生
+advisor_url: https://sites.google.com/site/ryokbya/home-japanese
 year: 修士1年
 summary: 大規模AIアクセラレータ上の機械学習の高速化を研究しています。LLVM projectのコンパイラ開発にも携わっています。
 keywords_label: 分野

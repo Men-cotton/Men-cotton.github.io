@@ -100,7 +100,15 @@ export function ProfilePage({ markdown, locale }: { markdown: string; locale: Lo
           <p className="keywords"><span>{frontmatter.keywords_label}</span>{frontmatter.keywords}</p>
           <dl className="facts">
             <div><dt>{copy.facts[0]}</dt><dd>{frontmatter.affiliation}</dd></div>
-            <div><dt>{copy.facts[1]}</dt><dd><ExternalLink href={frontmatter.lab_url}>{frontmatter.lab}</ExternalLink></dd></div>
+            <div>
+              <dt>{copy.facts[1]}</dt>
+              <dd>
+                <ExternalLink href={frontmatter.lab_url}>{frontmatter.lab}</ExternalLink>
+                {locale === "ja" ? "（主宰：" : " — led by "}
+                <ExternalLink href={frontmatter.advisor_url}>{frontmatter.advisor}</ExternalLink>
+                {locale === "ja" && "）"}
+              </dd>
+            </div>
             <div><dt>{copy.facts[2]}</dt><dd>{frontmatter.year}</dd></div>
           </dl>
           <div className="profile-links" aria-label={copy.profileLinks}>

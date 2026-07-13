@@ -5,6 +5,8 @@ role: High-Performance Computing and Compilers
 affiliation: Department of Mathematical and Computing Science, Institute of Science Tokyo
 lab: AC2 Lab
 lab_url: https://www.ac2.scrc.iir.isct.ac.jp/
+advisor: Ryohei Kobayashi
+advisor_url: https://sites.google.com/site/ryokbya/
 year: First-year master's student
 summary: I study faster machine learning on large AI accelerators. I also contribute to compiler development in the LLVM Project.
 keywords_label: Fields
