@@ -27,7 +27,7 @@ MLIRとClangIRを中心に、クラッシュの修正、テストの追加、low
 
 ### LLVM project / ClangIR・OpenCL
 MLIRとClangIRのクラッシュ修正に加え、OpenCLコードをClangIRで扱うための実装に取り組んでいます。commit権限を取得しており、issueの整理とテストコードのレビューにも参加しています。
-[OpenCLカーネル引数メタデータのPR](https://github.com/llvm/llvm-project/pull/200581)
+[マージ済みPR一覧](https://github.com/llvm/llvm-project/pulls?q=is%3Apr+author%3AMen-cotton+is%3Amerged+sort%3Aupdated-desc)
 
 ### Cerebras WSE向けGNN実装
 ウェハスケールプロセッサ上でGNN学習パイプラインを実装しました。学部卒業研究から継続して、性能分析と高速化を行っています。
