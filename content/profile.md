@@ -47,7 +47,7 @@ PolyBenchのプログラムをClangIRでloweringし、CPU対応の状況と生�
 CUDAを用いたステレオマッチングのパイプラインを構築しました。Nsight SystemsとNsight Computeで処理時間を測定し、ボトルネックとなる処理を高速化しました。
 
 ### SWoPP 2026での研究発表
-私は、SWoPP 2026 HPC-4（2026年8月6日）で「高水準ワークフローを用いたCerebras CS-3上の不規則GNN学習の実行特性分析」を発表します。指導教員の小林諒平先生との共同発表です。
+SWoPP 2026 HPC-4（2026年8月6日）で「高水準ワークフローを用いたCerebras CS-3上の不規則GNN学習の実行特性分析」を発表します。指導教員の小林諒平先生との共同発表です。
 [プログラム](https://swopp.github.io/2026/program/)
 
 ## 受賞・成績
