@@ -21,15 +21,12 @@ atcoder: https://atcoder.jp/users/mencotton
 Cerebras WSEを用いたGNN学習を題材に、計算、通信、メモリの処理時間を分析し、学習パイプラインの高速化に取り組んでいます。
 
 ### LLVM projectへの貢献
-MLIRとClangIRを中心に、クラッシュの修正、テストの追加、loweringの実装を行っています。約20件のPRがマージされ、commit権限を取得しています。
-
-### 新興アクセラレータの調査
-Cerebras、MN-Core、Tenstorrentなどの計算機を調べています。対象ハードウェア向けのコンパイラとプログラミングモデルに関心があります。
+MLIRとClangIRを中心に、クラッシュの修正、テストの追加、loweringの実装を行っています。commit権限を取得しています。
 
 ## 主な実績
 
 ### LLVM project
-MLIRとClangIRのクラッシュ修正を中心に約20件のPRがマージされています。issueの整理とテストコードのレビューにも参加しています。
+MLIRとClangIRのクラッシュ修正を中心に取り組んでいます。commit権限を取得しており、issueの整理とテストコードのレビューにも参加しています。
 [PR一覧](https://github.com/llvm/llvm-project/pulls?q=is%3Apr+author%3AMen-cotton+sort%3Aupdated-desc+is%3Aclosed)
 
 ### Cerebras WSE向けGNN実装
