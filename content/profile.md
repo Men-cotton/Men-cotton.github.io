@@ -7,6 +7,8 @@ lab: AC2 Lab
 lab_url: https://www.ac2.scrc.iir.isct.ac.jp/
 year: 修士1年
 summary: AC2 Labで、Cerebras WSE上のグラフニューラルネットワーク学習の高速化を研究しています。LLVM projectでは、MLIRとClangIRの不具合修正に加え、ClangIRのOpenCL対応に取り組んでいます。
+keywords_label: 分野
+keywords: High-Performance Computing / Compilers / LLVM / MLIR / ClangIR / OpenCL / Cerebras WSE / GNN
 email: watanuki@ac2.scrc.iir.isct.ac.jp
 github: https://github.com/Men-cotton
 linkedin: https://www.linkedin.com/in/mencotton/
@@ -22,7 +24,7 @@ casual_contact_link: Xのメンションも利用できます
 ## 現在の研究・活動
 
 ### Cerebras WSE上のGNN学習
-Cerebras WSEを用いたGNN学習を題材に、計算、通信、メモリの処理時間を分析し、学習パイプラインの高速化に取り組んでいます。
+Cerebras WSEを用いたGNN学習を題材に、計算、通信、メモリの処理時間を分析し、学習パイプラインの高速化に取り組んでいます。将来的には、WSE向けカーネルを高水準言語から生成するコンパイラの開発を目指しています。
 
 ### LLVM projectでのコンパイラ開発
 MLIRとClangIRを中心に、クラッシュの修正、テストの追加、loweringの実装を行っています。最近は、OpenCLカーネルの引数メタデータをCIR関数へ付与し、LLVM IRへloweringする処理に取り組んでいます。
@@ -45,16 +47,16 @@ PolyBenchのプログラムをClangIRでloweringし、CPU対応の状況と生�
 CUDAを用いたステレオマッチングのパイプラインを構築しました。Nsight SystemsとNsight Computeで処理時間を測定し、ボトルネックとなる処理を高速化しました。
 
 ### SWoPP 2026での研究発表
-SWoPP 2026 HPC-4（2026年8月6日）の発表題目は「高水準ワークフローを用いたCerebras CS-3上の不規則GNN学習の実行特性分析」です。共同発表者は小林諒平氏です。
+SWoPP 2026 HPC-4（2026年8月6日）の発表題目は「高水準ワークフローを用いたCerebras CS-3上の不規則GNN学習の実行特性分析」です。指導教員の小林諒平先生との共同発表です。
 [プログラム](https://swopp.github.io/2026/program/)
 
 ## 受賞・成績
 
-- LLVM projectのcommit権限
-- AtCoder Algorithm部門 最高レート2202
-- 日本情報オリンピック2021 春季トレーニング合宿参加
-- SuperComputingContest 2019 3位
-- 学生向けFixstars高速化コンテスト2026 23位
+- [LLVM projectのcommit権限](https://github.com/llvm/llvm-project/issues/176158)
+- [AtCoder Algorithm部門 最高レート2202](https://atcoder.jp/users/mencotton)
+- [日本情報オリンピック2021 春季トレーニング合宿参加](https://www2.ioi-jp.org/joi/2020/2021-ho-press_release.pdf)
+- [SuperComputingContest 2019 3位](https://www.titech.ac.jp/english/news/2019/045321)
+- [学生向けFixstars高速化コンテスト2026 23位](https://news.fixstars.com/6306/)
 
 ## 関心
 

@@ -46,6 +46,8 @@ nav a:hover { color: var(--text); }
 h1 { margin: 0; font-size: clamp(2.2rem, 6vw, 3.5rem); line-height: 1.2; letter-spacing: -.035em; }
 .name-en { margin: 2px 0 22px; color: var(--muted); }
 .summary { max-width: 650px; margin: 0; font-size: 1.05rem; }
+.keywords { margin: 14px 0 0; color: var(--muted); font-size: .88rem; }
+.keywords span { margin-right: 12px; color: var(--text); font-weight: 650; }
 .facts { margin: 28px 0 0; padding: 0; font-size: .92rem; }
 .facts div { display: grid; grid-template-columns: 74px 1fr; padding: 4px 0; }
 .facts dt { color: var(--muted); }

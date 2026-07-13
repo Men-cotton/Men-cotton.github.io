@@ -1,5 +1,6 @@
 type Frontmatter = Record<string, string>;
 type Entry = { title: string; description: string; link?: { label: string; href: string } };
+type ListItem = { label: string; link?: string };
 type Locale = "en" | "ja";
 
 const labels = {
@@ -57,8 +58,12 @@ function parseEntries(section = ""): Entry[] {
   });
 }
 
-function parseBullets(section = "") {
-  return section.split(/\r?\n/).filter((line) => line.startsWith("- ")).map((line) => line.slice(2).trim());
+function parseBullets(section = ""): ListItem[] {
+  return section.split(/\r?\n/).filter((line) => line.startsWith("- ")).map((line) => {
+    const value = line.slice(2).trim();
+    const match = value.match(/^\[(.+)\]\((https?:\/\/.+)\)$/);
+    return match ? { label: match[1], link: match[2] } : { label: value };
+  });
 }
 
 function ExternalLink({ href, children }: { href: string; children: React.ReactNode }) {
@@ -92,6 +97,7 @@ export function ProfilePage({ markdown, locale }: { markdown: string; locale: Lo
           <h1>{frontmatter.name}</h1>
           <p className="name-en">{frontmatter.name_secondary}</p>
           <p className="summary">{frontmatter.summary}</p>
+          <p className="keywords"><span>{frontmatter.keywords_label}</span>{frontmatter.keywords}</p>
           <dl className="facts">
             <div><dt>{copy.facts[0]}</dt><dd>{frontmatter.affiliation}</dd></div>
             <div><dt>{copy.facts[1]}</dt><dd><ExternalLink href={frontmatter.lab_url}>{frontmatter.lab}</ExternalLink></dd></div>
@@ -133,11 +139,11 @@ export function ProfilePage({ markdown, locale }: { markdown: string; locale: Lo
       <section className="section two-column">
         <div>
           <h2>{copy.sections[2]}</h2>
-          <ul>{achievements.map((item) => <li key={item}>{item}</li>)}</ul>
+          <ul>{achievements.map((item) => <li key={item.label}>{item.link ? <ExternalLink href={item.link}>{item.label}</ExternalLink> : item.label}</li>)}</ul>
         </div>
         <div>
           <h2>{copy.sections[3]}</h2>
-          <ul>{interests.map((item) => <li key={item}>{item}</li>)}</ul>
+          <ul>{interests.map((item) => <li key={item.label}>{item.link ? <ExternalLink href={item.link}>{item.label}</ExternalLink> : item.label}</li>)}</ul>
         </div>
       </section>
 
