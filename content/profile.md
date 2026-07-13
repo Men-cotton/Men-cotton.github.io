@@ -22,14 +22,6 @@ casual_contact_link: Xのメンションもどうぞ
 
 # Akimasa Watanuki
 
-## 現在の研究・活動
-
-### Cerebras WSE上のGNN学習
-Cerebras WSEを用いたGNN学習を題材に、計算、通信、メモリの処理時間を分析し、学習パイプラインの高速化に取り組んでいます。将来的には、WSE向けカーネルを高水準言語から生成するコンパイラの開発を目指しています。
-
-### LLVM projectでのコンパイラ開発
-ClangIRのOpenCL対応として、OpenCLカーネルの引数メタデータをCIR関数へ付与し、LLVM IRへloweringする処理に取り組んでいます。MLIRとClangIRでは、クラッシュの修正、テストの追加、loweringの実装も行っています。
-
 ## 研究実績
 
 ### SWoPP 2026での研究発表
@@ -37,7 +29,7 @@ SWoPP 2026 HPC-4（2026年8月6日）で「高水準ワークフローを用い�
 [プログラム](https://swopp.github.io/2026/program/)
 
 ### Cerebras WSE向けGNN実装
-ウェハスケールプロセッサ上でGNN学習パイプラインを実装しました。学部卒業研究から継続して、性能分析と高速化を行っています。
+ウェハスケールプロセッサ上でGNN学習パイプラインを実装しました。学部卒業研究から継続して性能分析と高速化を行い、将来的にはWSE向けカーネルを高水準言語から生成するコンパイラの開発を目指しています。
 [リポジトリ](https://github.com/Men-cotton/gnn-modelzoo-fork)
 
 ## 開発実績

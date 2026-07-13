@@ -22,14 +22,6 @@ casual_contact_link: X mentions are also welcome
 
 # Akimasa Watanuki
 
-## Research and current work
-
-### GNN training on Cerebras WSE
-I analyze computation, communication, and memory behavior in GNN training on the Cerebras WSE and work on improving the performance of the training pipeline. My long-term goal is to build a compiler that generates WSE kernels from a high-level language.
-
-### Contributions to the LLVM Project
-My recent work connects OpenCL with ClangIR by attaching kernel argument metadata to CIR functions and lowering it to LLVM IR. I also work on crash fixes, tests, and lowering implementations in MLIR and ClangIR.
-
 ## Research output
 
 ### SWoPP 2026 presentation
@@ -37,7 +29,7 @@ I will present “Execution Characteristics Analysis of Irregular GNN Training o
 [Program](https://swopp.github.io/2026/program/)
 
 ### GNN implementation for Cerebras WSE
-I implemented a GNN training pipeline for a wafer-scale processor. The project began as my undergraduate thesis and continues through my master's research.
+I implemented a GNN training pipeline for a wafer-scale processor. The project began as my undergraduate thesis and continues through my master's research. My long-term goal is to build a compiler that generates WSE kernels from a high-level language.
 [Repository](https://github.com/Men-cotton/gnn-modelzoo-fork)
 
 ## Software and engineering
