@@ -25,7 +25,7 @@ casual_contact_link: X mentions are also welcome
 ## Research output
 
 ### SWoPP 2026 presentation
-I will present “Execution Characteristics Analysis of Irregular GNN Training on Cerebras CS-3 Using a High-Level Workflow” in the SWoPP 2026 HPC-4 session on August 6, 2026. This is joint work with my advisor, Prof. Ryohei Kobayashi.
+I will present “Execution Characteristics Analysis of Irregular GNN Training on Cerebras CS-3 Using a High-Level Workflow” in the SWoPP 2026 HPC-4 session on August 6, 2026. This is joint work with my advisor, Ryohei Kobayashi.
 [Program](https://swopp.github.io/2026/program/)
 
 ### GNN implementation for Cerebras WSE
