@@ -39,7 +39,6 @@ PolyBenchのプログラムをClangIRでloweringし、CPU対応の状況と生�
 
 ### Fixstarsインターンシップ
 CUDAを用いたステレオマッチングのパイプラインを構築しました。Nsight SystemsとNsight Computeで処理時間を測定し、ボトルネックとなる処理を高速化しました。
-[GitHub](https://github.com/Men-cotton)
 
 ## 受賞・成績
 
