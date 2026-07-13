@@ -5,7 +5,7 @@ role: 高性能計算・コンパイラ
 affiliation: 東京科学大学 情報理工学院 数理・計算科学系
 lab: AC2 Lab
 year: 修士1年
-summary: AC2 Labで、Cerebras WSE上のグラフニューラルネットワーク学習の高速化を研究しています。LLVM projectでは、MLIRとClangIRの不具合修正や実装に取り組んでいます。
+summary: AC2 Labで、Cerebras WSE上のグラフニューラルネットワーク学習の高速化を研究しています。LLVM projectでは、MLIRとClangIRの不具合修正に加え、ClangIRのOpenCL対応に取り組んでいます。
 email: watanuki@ac2.scrc.iir.isct.ac.jp
 github: https://github.com/Men-cotton
 linkedin: https://www.linkedin.com/in/mencotton/
@@ -21,13 +21,13 @@ atcoder: https://atcoder.jp/users/mencotton
 Cerebras WSEを用いたGNN学習を題材に、計算、通信、メモリの処理時間を分析し、学習パイプラインの高速化に取り組んでいます。
 
 ### LLVM projectへの貢献
-MLIRとClangIRを中心に、クラッシュの修正、テストの追加、loweringの実装を行っています。commit権限を取得しています。
+MLIRとClangIRを中心に、クラッシュの修正、テストの追加、loweringの実装を行っています。最近は、OpenCLカーネルの引数メタデータをCIR関数へ付与し、LLVM IRへloweringする処理に取り組んでいます。commit権限を取得しています。
 
 ## 主な実績
 
-### LLVM project
-MLIRとClangIRのクラッシュ修正を中心に取り組んでいます。commit権限を取得しており、issueの整理とテストコードのレビューにも参加しています。
-[PR一覧](https://github.com/llvm/llvm-project/pulls?q=is%3Apr+author%3AMen-cotton+sort%3Aupdated-desc+is%3Aclosed)
+### LLVM project / ClangIR・OpenCL
+MLIRとClangIRのクラッシュ修正に加え、OpenCLコードをClangIRで扱うための実装に取り組んでいます。commit権限を取得しており、issueの整理とテストコードのレビューにも参加しています。
+[OpenCLカーネル引数メタデータのPR](https://github.com/llvm/llvm-project/pull/200581)
 
 ### Cerebras WSE向けGNN実装
 ウェハスケールプロセッサ上でGNN学習パイプラインを実装しました。学部卒業研究から継続して、性能分析と高速化を行っています。
