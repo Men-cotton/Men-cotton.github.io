@@ -9,9 +9,9 @@ const labels = {
     navLabel: "Page navigation",
     language: "日本語",
     languageHref: "/ja",
-    facts: ["Affiliation", "Lab", "Program", "Experience"],
+    facts: ["Affiliation", "Lab", "Program"],
     profileLinks: "External profiles",
-    sections: ["Research output", "Software and engineering", "Recognition", "Interests", "Contact"],
+    sections: ["Research output", "Software and engineering", "Experience", "Recognition", "Interests", "Contact"],
     portrait: "Portrait of Akimasa Watanuki",
   },
   ja: {
@@ -19,9 +19,9 @@ const labels = {
     navLabel: "ページ内ナビゲーション",
     language: "English",
     languageHref: "/",
-    facts: ["所属", "研究室", "学年", "経歴"],
+    facts: ["所属", "研究室", "学年"],
     profileLinks: "外部プロフィール",
-    sections: ["研究実績", "開発実績", "受賞・成績", "関心", "連絡先"],
+    sections: ["研究実績", "開発実績", "経歴", "受賞・成績", "関心", "連絡先"],
     portrait: "綿貫晃雅のポートレート",
   },
 } as const;
@@ -75,8 +75,9 @@ export function ProfilePage({ markdown, locale }: { markdown: string; locale: Lo
   const { frontmatter, sections } = parseProfile(markdown);
   const researchOutput = parseEntries(sections.get(copy.sections[0]));
   const developmentWork = parseEntries(sections.get(copy.sections[1]));
-  const achievements = parseBullets(sections.get(copy.sections[2]));
-  const interests = parseBullets(sections.get(copy.sections[3]));
+  const experience = parseEntries(sections.get(copy.sections[2]));
+  const achievements = parseBullets(sections.get(copy.sections[3]));
+  const interests = parseBullets(sections.get(copy.sections[4]));
 
   return (
     <main lang={locale}>
@@ -110,7 +111,6 @@ export function ProfilePage({ markdown, locale }: { markdown: string; locale: Lo
               </dd>
             </div>
             <div><dt>{copy.facts[2]}</dt><dd>{frontmatter.year}</dd></div>
-            <div><dt>{copy.facts[3]}</dt><dd>{frontmatter.position}</dd></div>
           </dl>
           <div className="profile-links" aria-label={copy.profileLinks}>
             <ExternalLink href={frontmatter.github}>GitHub</ExternalLink>
@@ -145,19 +145,31 @@ export function ProfilePage({ markdown, locale }: { markdown: string; locale: Lo
         </div>
       </section>
 
+      <section className="section" id="experience">
+        <h2>{copy.sections[2]}</h2>
+        <div className="entry-list">
+          {experience.map((item) => (
+            <article className="entry" key={item.title}>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="section two-column">
         <div className="recognition">
-          <h2>{copy.sections[2]}</h2>
+          <h2>{copy.sections[3]}</h2>
           <ul>{achievements.map((item) => <li key={item.label}>{item.link ? <ExternalLink href={item.link}>{item.label}</ExternalLink> : item.label}</li>)}</ul>
         </div>
         <div>
-          <h2>{copy.sections[3]}</h2>
+          <h2>{copy.sections[4]}</h2>
           <ul>{interests.map((item) => <li key={item.label}>{item.link ? <ExternalLink href={item.link}>{item.label}</ExternalLink> : item.label}</li>)}</ul>
         </div>
       </section>
 
       <section className="section contact" id="contact">
-        <h2>{copy.sections[4]}</h2>
+        <h2>{copy.sections[5]}</h2>
         <p>{frontmatter.contact_before}{locale === "en" ? " " : ""}<a className="email" href={`mailto:${frontmatter.email}`}>{frontmatter.email}</a>{frontmatter.contact_after}</p>
         <p>{frontmatter.casual_contact} <ExternalLink href={frontmatter.x}>{frontmatter.casual_contact_link}</ExternalLink></p>
       </section>

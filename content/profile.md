@@ -8,7 +8,6 @@ lab_url: https://www.ac2.scrc.iir.isct.ac.jp/
 advisor: 小林諒平先生
 advisor_url: https://sites.google.com/site/ryokbya/home-japanese
 year: 修士1年
-position: AC2 Lab リサーチアシスタント（2026年–）
 summary: 大規模AIアクセラレータ上の機械学習の高速化を研究しています。LLVM projectのコンパイラ開発にも携わっています。
 keywords_label: 分野
 keywords: 高性能計算（HPC） / Cerebras WSE / GNN / GPU / 機械学習の高速化 / AI for Science / デジタルツイン / コンパイラ / LLVM / MLIR / ClangIR / OpenCL
@@ -45,8 +44,22 @@ OpenCLコードをClangIRで扱うため、カーネル引数メタデータをC
 PolyBenchのプログラムをClangIRでloweringし、CPU対応の状況と生成コードを調査しました。
 [リポジトリ](https://github.com/Men-cotton/llvm-test-suite-clangir)
 
-### Fixstarsインターンシップ
+## 経歴
+
+### AC2 Lab（2026年–現在）
+リサーチアシスタントとして勤務しています。
+
+### チームラボ（2024年8月）
+OpenCVとC++を用い、コンピュータビジョン関連アプリを開発しました。
+
+### いい生活（2024年8月）
+Reactと物件APIを用いた物件比較アプリを、ハッカソン形式で開発しました。
+
+### Fixstars（2024年3月–4月）
 CUDAを用いたステレオマッチングのパイプラインを構築しました。Nsight SystemsとNsight Computeで処理時間を測定し、ボトルネックとなる処理を高速化しました。
+
+### ロボ団 北浦和校（2023年2月–現在）
+プログラミング講師として勤務しています。
 
 ## 受賞・成績
 

@@ -8,7 +8,6 @@ lab_url: https://www.ac2.scrc.iir.isct.ac.jp/
 advisor: Ryohei Kobayashi
 advisor_url: https://sites.google.com/site/ryokbya/
 year: First-year master's student
-position: Research Assistant, AC2 Lab (2026–present)
 summary: I study faster machine learning on large AI accelerators. I also contribute to compiler development in the LLVM Project.
 keywords_label: Fields
 keywords: High-Performance Computing (HPC) / Cerebras WSE / GNN / GPU Computing / Machine Learning Acceleration / AI for Science / Digital Twins / Compilers / LLVM / MLIR / ClangIR / OpenCL
@@ -45,8 +44,22 @@ To process OpenCL code through ClangIR, I work on attaching kernel argument meta
 I lowered PolyBench programs with ClangIR to examine its current CPU support and generated code.
 [Repository](https://github.com/Men-cotton/llvm-test-suite-clangir)
 
-### Fixstars internship
+## Experience
+
+### AC2 Lab (2026–present)
+I work as a research assistant.
+
+### teamLab (August 2024)
+I developed a computer vision application in C++ using OpenCV.
+
+### e-Seikatsu (August 2024)
+I built a property comparison app with React and a real-estate API in a team hackathon.
+
+### Fixstars (March–April 2024)
 I built a CUDA stereo-matching pipeline, measured its runtime with Nsight Systems and Nsight Compute, and optimized bottleneck operations.
+
+### Robodan Kita-Urawa School (February 2023–present)
+I teach programming.
 
 ## Recognition
 
