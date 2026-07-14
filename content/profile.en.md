@@ -47,7 +47,8 @@ I lowered PolyBench programs with ClangIR to examine its current CPU support and
 ## Experience
 
 ### AC2 Lab (2026–present)
-I work as a research assistant.
+I work as a research assistant on a JSPS KAKENHI Grant-in-Aid for Scientific Research (B) project.
+[“Wafer-scale computing to accelerate graph-structured data processing” (26K02920)](https://kaken.nii.ac.jp/en/grant/KAKENHI-PROJECT-26K02920/)
 
 ### teamLab (August 2024)
 I developed a computer vision application in C++ using OpenCV.

@@ -151,7 +151,10 @@ export function ProfilePage({ markdown, locale }: { markdown: string; locale: Lo
           {experience.map((item) => (
             <article className="entry" key={item.title}>
               <h3>{item.title}</h3>
-              <p>{item.description}</p>
+              <div className="experience-detail">
+                <p>{item.description}</p>
+                {item.link && <ExternalLink href={item.link.href}>{item.link.label}</ExternalLink>}
+              </div>
             </article>
           ))}
         </div>
