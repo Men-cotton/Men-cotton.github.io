@@ -9,7 +9,7 @@ const labels = {
     navLabel: "Page navigation",
     language: "日本語",
     languageHref: "/ja",
-    facts: ["Affiliation", "Lab", "Program"],
+    facts: ["Affiliation", "Lab", "Program", "Position"],
     profileLinks: "External profiles",
     sections: ["Research output", "Software and engineering", "Recognition", "Interests", "Contact"],
     portrait: "Portrait of Akimasa Watanuki",
@@ -19,7 +19,7 @@ const labels = {
     navLabel: "ページ内ナビゲーション",
     language: "English",
     languageHref: "/",
-    facts: ["所属", "研究室", "学年"],
+    facts: ["所属", "研究室", "学年", "役職"],
     profileLinks: "外部プロフィール",
     sections: ["研究実績", "開発実績", "受賞・成績", "関心", "連絡先"],
     portrait: "綿貫晃雅のポートレート",
@@ -110,6 +110,7 @@ export function ProfilePage({ markdown, locale }: { markdown: string; locale: Lo
               </dd>
             </div>
             <div><dt>{copy.facts[2]}</dt><dd>{frontmatter.year}</dd></div>
+            <div><dt>{copy.facts[3]}</dt><dd>{frontmatter.position}</dd></div>
           </dl>
           <div className="profile-links" aria-label={copy.profileLinks}>
             <ExternalLink href={frontmatter.github}>GitHub</ExternalLink>

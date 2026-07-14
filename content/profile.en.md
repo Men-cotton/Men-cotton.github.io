@@ -8,6 +8,7 @@ lab_url: https://www.ac2.scrc.iir.isct.ac.jp/
 advisor: Ryohei Kobayashi
 advisor_url: https://sites.google.com/site/ryokbya/
 year: First-year master's student
+position: Research Assistant (RA), AC2 Lab (since 2026)
 summary: I study faster machine learning on large AI accelerators. I also contribute to compiler development in the LLVM Project.
 keywords_label: Fields
 keywords: High-Performance Computing (HPC) / Cerebras WSE / GNN / GPU Computing / Machine Learning Acceleration / AI for Science / Digital Twins / Compilers / LLVM / MLIR / ClangIR / OpenCL

@@ -8,6 +8,7 @@ lab_url: https://www.ac2.scrc.iir.isct.ac.jp/
 advisor: 小林諒平先生
 advisor_url: https://sites.google.com/site/ryokbya/home-japanese
 year: 修士1年
+position: AC2 Lab リサーチ・アシスタント（RA、2026年–）
 summary: 大規模AIアクセラレータ上の機械学習の高速化を研究しています。LLVM projectのコンパイラ開発にも携わっています。
 keywords_label: 分野
 keywords: 高性能計算（HPC） / Cerebras WSE / GNN / GPU / 機械学習の高速化 / AI for Science / デジタルツイン / コンパイラ / LLVM / MLIR / ClangIR / OpenCL
