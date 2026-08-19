@@ -29,7 +29,7 @@ casual_contact_link: X mentions are also welcome
 ### SWoPP 2026 presentation
 I presented “Execution Characteristics Analysis of Irregular GNN Training on Cerebras CS-3 Using a High-Level Workflow” in the SWoPP 2026 HPC-4 session on August 6, 2026. This was joint work with my advisor, Ryohei Kobayashi.
 [Program](https://swopp.github.io/2026/program/)
-[Paper](https://ipsj.ixsq.nii.ac.jp/records/2010658)
+[Technical report (not peer-reviewed)](https://ipsj.ixsq.nii.ac.jp/records/2010658)
 
 ### GNN implementation for Cerebras WSE
 I implemented a GNN training pipeline for a wafer-scale processor. The project began as my undergraduate thesis and continues through my master's research. My long-term goal is to build a compiler that generates WSE kernels from a high-level language.
