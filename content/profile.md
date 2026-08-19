@@ -29,6 +29,7 @@ casual_contact_link: Xのメンションもどうぞ
 ### SWoPP 2026での研究発表
 SWoPP 2026 HPC-4（2026年8月6日）で「高水準ワークフローを用いたCerebras CS-3上の不規則GNN学習の実行特性分析」を発表しました。指導教員の小林諒平先生との共同発表です。
 [プログラム](https://swopp.github.io/2026/program/)
+[論文](https://ipsj.ixsq.nii.ac.jp/records/2010658)
 
 ### Cerebras WSE向けGNN実装
 ウェハスケールプロセッサ上でGNN学習パイプラインを実装しました。学部卒業研究から継続して性能分析と高速化を行い、将来的にはWSE向けカーネルを高水準言語から生成するコンパイラの開発を目指しています。

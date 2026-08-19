@@ -1,5 +1,5 @@
 type Frontmatter = Record<string, string>;
-type Entry = { title: string; description: string; link?: { label: string; href: string } };
+type Entry = { title: string; description: string; links: { label: string; href: string }[] };
 type ListItem = { label: string; link?: string };
 type Locale = "en" | "ja";
 
@@ -48,12 +48,14 @@ function parseProfile(markdown: string) {
 function parseEntries(section = ""): Entry[] {
   return section.split(/^### /m).slice(1).map((block) => {
     const [title, ...lines] = block.split(/\r?\n/).filter(Boolean);
-    const linkLine = lines.find((line) => /^\[.+\]\(https?:\/\/.+\)$/.test(line));
-    const linkMatch = linkLine?.match(/^\[(.+)\]\((https?:\/\/.+)\)$/);
+    const linkLines = lines.filter((line) => /^\[.+\]\(https?:\/\/.+\)$/.test(line));
     return {
       title: title.trim(),
-      description: lines.filter((line) => line !== linkLine).join(" ").trim(),
-      link: linkMatch ? { label: linkMatch[1], href: linkMatch[2] } : undefined,
+      description: lines.filter((line) => !linkLines.includes(line)).join(" ").trim(),
+      links: linkLines.flatMap((line) => {
+        const match = line.match(/^\[(.+)\]\((https?:\/\/.+)\)$/);
+        return match ? [{ label: match[1], href: match[2] }] : [];
+      }),
     };
   });
 }
@@ -127,7 +129,7 @@ export function ProfilePage({ markdown, locale }: { markdown: string; locale: Lo
           {researchOutput.map((item) => (
             <article className="entry work-entry" key={item.title}>
               <div><h3>{item.title}</h3><p>{item.description}</p></div>
-              {item.link && <ExternalLink href={item.link.href}>{item.link.label}</ExternalLink>}
+              {item.links.length > 0 && <div className="entry-links">{item.links.map((link) => <ExternalLink href={link.href} key={link.href}>{link.label}</ExternalLink>)}</div>}
             </article>
           ))}
         </div>
@@ -139,7 +141,7 @@ export function ProfilePage({ markdown, locale }: { markdown: string; locale: Lo
           {developmentWork.map((item) => (
             <article className="entry work-entry" key={item.title}>
               <div><h3>{item.title}</h3><p>{item.description}</p></div>
-              {item.link && <ExternalLink href={item.link.href}>{item.link.label}</ExternalLink>}
+              {item.links.length > 0 && <div className="entry-links">{item.links.map((link) => <ExternalLink href={link.href} key={link.href}>{link.label}</ExternalLink>)}</div>}
             </article>
           ))}
         </div>
@@ -153,7 +155,7 @@ export function ProfilePage({ markdown, locale }: { markdown: string; locale: Lo
               <h3>{item.title}</h3>
               <div className="experience-detail">
                 <p>{item.description}</p>
-                {item.link && <ExternalLink href={item.link.href}>{item.link.label}</ExternalLink>}
+                {item.links.map((link) => <ExternalLink href={link.href} key={link.href}>{link.label}</ExternalLink>)}
               </div>
             </article>
           ))}
