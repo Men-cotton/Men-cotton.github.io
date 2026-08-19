@@ -27,7 +27,7 @@ casual_contact_link: Xのメンションもどうぞ
 ## 研究実績
 
 ### SWoPP 2026での研究発表
-SWoPP 2026 HPC-4（2026年8月6日）で「高水準ワークフローを用いたCerebras CS-3上の不規則GNN学習の実行特性分析」を発表します。指導教員の小林諒平先生との共同発表です。
+SWoPP 2026 HPC-4（2026年8月6日）で「高水準ワークフローを用いたCerebras CS-3上の不規則GNN学習の実行特性分析」を発表しました。指導教員の小林諒平先生との共同発表です。
 [プログラム](https://swopp.github.io/2026/program/)
 
 ### Cerebras WSE向けGNN実装
@@ -39,10 +39,6 @@ SWoPP 2026 HPC-4（2026年8月6日）で「高水準ワークフローを用い�
 ### LLVM projectでの開発実績
 OpenCLコードをClangIRで扱うため、カーネル引数メタデータをCIR関数へ付与し、LLVM IRへloweringする処理に取り組んでいます。MLIRとClangIRのクラッシュ修正、issueの整理、テストコードのレビューにも参加しています。
 [マージ済みPR](https://github.com/llvm/llvm-project/pulls?q=is%3Apr+author%3AMen-cotton+is%3Amerged+sort%3Aupdated-desc)
-
-### ClangIRによるPolyBenchの変換
-PolyBenchのプログラムをClangIRでloweringし、CPU対応の状況と生成コードを調査しました。
-[リポジトリ](https://github.com/Men-cotton/llvm-test-suite-clangir)
 
 ## 経歴
 
@@ -75,6 +71,6 @@ CUDAを用いたステレオマッチングのパイプラインを構築しま�
 - AI for Scienceと研究開発の自動化
 - MLIRを利用するプログラミング言語
 - 自律ロボット
+- AI safety
 - ダンスゲーム
 - 蒙古タンメン中本
-- ウイスキー

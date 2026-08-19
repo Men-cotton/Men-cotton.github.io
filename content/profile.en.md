@@ -27,7 +27,7 @@ casual_contact_link: X mentions are also welcome
 ## Research output
 
 ### SWoPP 2026 presentation
-I will present “Execution Characteristics Analysis of Irregular GNN Training on Cerebras CS-3 Using a High-Level Workflow” in the SWoPP 2026 HPC-4 session on August 6, 2026. This is joint work with my advisor, Ryohei Kobayashi.
+I presented “Execution Characteristics Analysis of Irregular GNN Training on Cerebras CS-3 Using a High-Level Workflow” in the SWoPP 2026 HPC-4 session on August 6, 2026. This was joint work with my advisor, Ryohei Kobayashi.
 [Program](https://swopp.github.io/2026/program/)
 
 ### GNN implementation for Cerebras WSE
@@ -39,10 +39,6 @@ I implemented a GNN training pipeline for a wafer-scale processor. The project b
 ### Contributions to the LLVM Project
 To process OpenCL code through ClangIR, I work on attaching kernel argument metadata to CIR functions and lowering it to LLVM IR. I also contribute crash fixes in MLIR and ClangIR, triage issues, and review tests.
 [Merged PRs](https://github.com/llvm/llvm-project/pulls?q=is%3Apr+author%3AMen-cotton+is%3Amerged+sort%3Aupdated-desc)
-
-### Lowering PolyBench with ClangIR
-I lowered PolyBench programs with ClangIR to examine its current CPU support and generated code.
-[Repository](https://github.com/Men-cotton/llvm-test-suite-clangir)
 
 ## Experience
 
@@ -75,6 +71,6 @@ I teach programming.
 - AI for Science and research automation
 - Programming languages built with MLIR
 - Autonomous robots
+- AI safety
 - Dance games
 - Mongolian Tanmen Nakamoto
-- Whisky
