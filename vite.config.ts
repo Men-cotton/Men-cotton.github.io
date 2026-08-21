@@ -16,7 +16,7 @@ const localBindingConfig = {
   compatibility_flags: ["nodejs_compat"],
   assets: {
     binding: "ASSETS",
-    run_worker_first: ["/assets/*", "/profile-82d807edf2.webp"],
+    run_worker_first: ["/assets/*"],
   },
   d1_databases: d1
     ? [

@@ -29,11 +29,23 @@ const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
-    if (url.pathname.startsWith("/assets/") || url.pathname === "/profile-82d807edf2.webp") {
+    if (url.pathname === "/_media/profile-82d807edf2.webp") {
+      const assetUrl = new URL("/profile-82d807edf2.webp", request.url);
+      const asset = await env.ASSETS.fetch(new Request(assetUrl, request));
+      const headers = new Headers(asset.headers);
+      headers.set("Cache-Control", "public, max-age=31536000, immutable");
+      headers.set("Content-Type", "image/webp");
+      return new Response(asset.body, {
+        status: asset.status,
+        statusText: asset.statusText,
+        headers,
+      });
+    }
+
+    if (url.pathname.startsWith("/assets/")) {
       const asset = await env.ASSETS.fetch(request);
       const headers = new Headers(asset.headers);
       headers.set("Cache-Control", "public, max-age=31536000, immutable");
-      if (url.pathname.endsWith(".webp")) headers.set("Content-Type", "image/webp");
       return new Response(asset.body, {
         status: asset.status,
         statusText: asset.statusText,

@@ -96,7 +96,7 @@ export function ProfilePage({ markdown, locale }: { markdown: string; locale: Lo
 
       <section className="profile" id="top">
         <img
-          src="/profile-82d807edf2.webp"
+          src="/_media/profile-82d807edf2.webp"
           alt={copy.portrait}
           width="180"
           height="180"
