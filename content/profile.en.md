@@ -50,7 +50,9 @@ I am interested in measuring execution characteristics and identifying bottlenec
 My long-term goal is to build an MLIR-based compiler that generates WSE kernels from a high-level language.
 
 ### AI Safety
-I am interested in AI safety, which aims to reduce severe risks from advanced AI. With the growth of AI for Science and research automation, I want to study mechanisms that verify computation across heterogeneous AI accelerators and AI-operated research environments, and constrain or halt unsafe execution.
+I am interested in AI safety, which aims to reduce severe risks from advanced AI. As AI for Science and research automation advance, OpenAI is integrating Cerebras systems into its inference stack and has co-developed Jalapeño, an LLM inference accelerator, with Broadcom. Frontier AI companies now optimize accelerators alongside models and software. Existing AI safety research on compute monitoring and verification focuses primarily on GPUs, leaving support for heterogeneous accelerators as an open problem. I want to study mechanisms that verify computation across heterogeneous AI accelerators and AI-operated research environments, and constrain or halt unsafe execution.
+[OpenAI–Cerebras partnership](https://openai.com/index/cerebras-partnership/)
+[Jalapeño inference chip](https://openai.com/index/openai-broadcom-jalapeno-inference-chip/)
 
 ## Experience
 
