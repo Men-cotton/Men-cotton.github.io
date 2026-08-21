@@ -4,6 +4,7 @@
   --line: #d8dee4;
   --link: #175cd3;
   --background: #ffffff;
+  --section-space: 24px;
 }
 
 * { box-sizing: border-box; }
@@ -54,10 +55,10 @@ h1 { margin: 0; font-size: clamp(2.2rem, 6vw, 3.5rem); line-height: 1.2; letter-
 .facts dd { margin: 0; }
 .profile-links { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 24px; font-size: .92rem; }
 
-.section { padding: 56px 0; border-top: 1px solid var(--line); }
+.section { padding: var(--section-space) 0; border-top: 1px solid var(--line); }
 h2 { margin: 0 0 30px; font-size: 1.45rem; line-height: 1.4; letter-spacing: -.02em; }
 .entry-list { display: grid; gap: 0; }
-.entry { display: grid; grid-template-columns: 230px 1fr; gap: 32px; padding: 24px 0; border-top: 1px solid #edf0f2; }
+.entry { display: grid; grid-template-columns: 230px 1fr; gap: 32px; padding: var(--section-space) 0; border-top: 1px solid #edf0f2; }
 .entry:first-child { border-top: 0; padding-top: 0; }
 .entry:last-child { padding-bottom: 0; }
 .entry h3 { margin: 0; font-size: 1rem; line-height: 1.6; }
