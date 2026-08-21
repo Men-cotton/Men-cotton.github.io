@@ -51,8 +51,8 @@ MLIRを基盤に、高水準言語からWSE向けカーネルを生成するコ�
 
 ### AI Safety
 高度なAIがもたらす重大な危険を抑えるAI Safetyに関心があります。AI for Scienceと研究開発の自動化が進む中、OpenAIはCerebrasの専用システムを推論基盤へ統合する提携を結び、BroadcomとLLM推論向けアクセラレータJalapeñoを共同開発しました。Googleも、Geminiの学習・推論を担うTPUを自社開発しています。先端AI企業では、モデルやソフトウェアに加えてアクセラレータも最適化の対象です。計算資源の監視・検証を扱う既存のAI Safety研究はGPUを主な対象としており、異種アクセラレータへの対応が研究課題として残っています。異種AIアクセラレータ上の計算とAIが操作する研究環境を検証し、危険な実行を制限・停止できる仕組みを研究したいと考えています。
-[MIRIのAIリスク概要](https://intelligence.org/briefing/)
-[AI 2027の競争シナリオ](https://ai-2027.com/race)
+[AI リスク概要（MIRI）](https://intelligence.org/briefing/)
+[AI リスクのシナリオ（AI2027）](https://ai-2027.com/race)
 [OpenAIとCerebrasの提携](https://openai.com/ja-JP/index/cerebras-partnership/)
 [Jalapeño推論チップ](https://openai.com/ja-JP/index/openai-broadcom-jalapeno-inference-chip/)
 [GoogleのTPU](https://cloud.google.com/tpu?hl=ja)
