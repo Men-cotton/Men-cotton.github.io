@@ -32,7 +32,7 @@ I presented “Execution Characteristics Analysis of Irregular GNN Training on C
 [Technical report (not peer-reviewed)](https://ipsj.ixsq.nii.ac.jp/records/2010658)
 
 ### GNN implementation for Cerebras WSE
-I implemented a GNN training pipeline for a wafer-scale processor. The project began as my undergraduate thesis and continues through my master's research. My long-term goal is to build a compiler that generates WSE kernels from a high-level language.
+I implemented a GNN training pipeline for a wafer-scale processor. The project began as my undergraduate thesis, and I continue to analyze its performance in my master's research.
 [Repository](https://github.com/Men-cotton/gnn-modelzoo-fork)
 
 ## Software and engineering
@@ -43,9 +43,14 @@ To process OpenCL code through ClangIR, I work on attaching kernel argument meta
 
 ## Research interests
 
-- AI for Science and research automation
-- Programming languages built with MLIR
-- AI Safety
+### Machine learning performance analysis on large-scale AI accelerators
+I am interested in measuring execution characteristics and identifying bottlenecks on large-scale AI accelerators, including wafer-scale processors.
+
+### Programming languages built with MLIR
+My long-term goal is to build an MLIR-based compiler that generates WSE kernels from a high-level language.
+
+### AI Safety
+AI for Science and research automation could accelerate scientific discovery. I am also interested in risks from misuse and unintended behavior of advanced AI systems.
 
 ## Experience
 

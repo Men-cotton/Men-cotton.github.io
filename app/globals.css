@@ -67,8 +67,6 @@ h2 { margin: 0 0 30px; font-size: 1.45rem; line-height: 1.4; letter-spacing: -.0
 .entry-links > a { white-space: nowrap; font-size: .9rem; }
 
 .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; }
-.research-interests ul { margin: 0; padding-left: 1.25rem; }
-.research-interests li { margin-bottom: 10px; }
 .two-column ul { margin: 0; padding-left: 1.25rem; }
 .two-column li { margin-bottom: 10px; }
 .recognition a { color: inherit; text-decoration-color: transparent; }

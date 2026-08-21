@@ -77,7 +77,7 @@ export function ProfilePage({ markdown, locale }: { markdown: string; locale: Lo
   const { frontmatter, sections } = parseProfile(markdown);
   const researchOutput = parseEntries(sections.get(copy.sections[0]));
   const developmentWork = parseEntries(sections.get(copy.sections[1]));
-  const researchInterests = parseBullets(sections.get(copy.sections[2]));
+  const researchInterests = parseEntries(sections.get(copy.sections[2]));
   const experience = parseEntries(sections.get(copy.sections[3]));
   const achievements = parseBullets(sections.get(copy.sections[4]));
   const interests = parseBullets(sections.get(copy.sections[5]));
@@ -150,7 +150,14 @@ export function ProfilePage({ markdown, locale }: { markdown: string; locale: Lo
 
       <section className="section research-interests" id="research-interests">
         <h2>{copy.sections[2]}</h2>
-        <ul>{researchInterests.map((item) => <li key={item.label}>{item.link ? <ExternalLink href={item.link}>{item.label}</ExternalLink> : item.label}</li>)}</ul>
+        <div className="entry-list">
+          {researchInterests.map((item) => (
+            <article className="entry work-entry" key={item.title}>
+              <div><h3>{item.title}</h3><p>{item.description}</p></div>
+              {item.links.length > 0 && <div className="entry-links">{item.links.map((link) => <ExternalLink href={link.href} key={link.href}>{link.label}</ExternalLink>)}</div>}
+            </article>
+          ))}
+        </div>
       </section>
 
       <section className="section" id="experience">
