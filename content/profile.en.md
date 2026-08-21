@@ -50,7 +50,7 @@ I am interested in measuring execution characteristics and identifying bottlenec
 My long-term goal is to build an MLIR-based compiler that generates WSE kernels from a high-level language.
 
 ### AI Safety
-AI for Science and research automation could accelerate scientific discovery. I am also interested in risks from misuse and unintended behavior of advanced AI systems.
+I am interested in AI safety, which aims to reduce severe risks from advanced AI. With the growth of AI for Science and research automation, I want to study mechanisms that verify computation across heterogeneous AI accelerators and AI-operated research environments, and constrain or halt unsafe execution.
 
 ## Experience
 
