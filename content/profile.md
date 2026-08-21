@@ -8,9 +8,9 @@ lab_url: https://www.ac2.scrc.iir.isct.ac.jp/
 advisor: 小林諒平先生
 advisor_url: https://sites.google.com/site/ryokbya/home-japanese
 year: 修士1年
-summary: 大規模AIアクセラレータ上の機械学習の高速化を研究しています。LLVM projectのコンパイラ開発にも携わっています。
+summary: 大規模AIアクセラレータ上の機械学習の性能分析に取り組んでいます。LLVM projectのコンパイラ開発にも携わっています。
 keywords_label: 分野
-keywords: 高性能計算（HPC） / Cerebras WSE / GNN / GPU / 機械学習の高速化 / AI for Science / デジタルツイン / コンパイラ / LLVM / MLIR / ClangIR / OpenCL
+keywords: 高性能計算（HPC） / Cerebras WSE / GNN / GPU / 機械学習の性能分析 / AI for Science / AI Safety / デジタルツイン / コンパイラ / LLVM / MLIR / ClangIR / OpenCL
 email: watanuki@ac2.scrc.iir.isct.ac.jp
 github: https://github.com/Men-cotton
 linkedin: https://www.linkedin.com/in/mencotton/
@@ -41,6 +41,12 @@ SWoPP 2026 HPC-4（2026年8月6日）で「高水準ワークフローを用い�
 OpenCLコードをClangIRで扱うため、カーネル引数メタデータをCIR関数へ付与し、LLVM IRへloweringする処理に取り組んでいます。MLIRとClangIRのクラッシュ修正、issueの整理、テストコードのレビューにも参加しています。
 [マージ済みPR](https://github.com/llvm/llvm-project/pulls?q=is%3Apr+author%3AMen-cotton+is%3Amerged+sort%3Aupdated-desc)
 
+## 研究の関心
+
+- AI for Scienceと研究開発の自動化
+- MLIRを利用するプログラミング言語
+- AI Safety
+
 ## 経歴
 
 ### AC2 Lab（2026年–現在）
@@ -69,9 +75,6 @@ CUDAを用いたステレオマッチングのパイプラインを構築しま�
 
 ## 関心
 
-- AI for Scienceと研究開発の自動化
-- MLIRを利用するプログラミング言語
 - 自律ロボット
-- AI safety
 - ダンスゲーム
 - 蒙古タンメン中本

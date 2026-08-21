@@ -8,9 +8,9 @@ lab_url: https://www.ac2.scrc.iir.isct.ac.jp/
 advisor: Ryohei Kobayashi
 advisor_url: https://sites.google.com/site/ryokbya/
 year: First-year master's student
-summary: I study faster machine learning on large AI accelerators. I also contribute to compiler development in the LLVM Project.
+summary: I analyze machine learning performance on large AI accelerators. I also contribute to compiler development in the LLVM Project.
 keywords_label: Fields
-keywords: High-Performance Computing (HPC) / Cerebras WSE / GNN / GPU Computing / Machine Learning Acceleration / AI for Science / Digital Twins / Compilers / LLVM / MLIR / ClangIR / OpenCL
+keywords: High-Performance Computing (HPC) / Cerebras WSE / GNN / GPU Computing / Machine Learning Performance Analysis / AI for Science / AI Safety / Digital Twins / Compilers / LLVM / MLIR / ClangIR / OpenCL
 email: watanuki@ac2.scrc.iir.isct.ac.jp
 github: https://github.com/Men-cotton
 linkedin: https://www.linkedin.com/in/mencotton/
@@ -41,6 +41,12 @@ I implemented a GNN training pipeline for a wafer-scale processor. The project b
 To process OpenCL code through ClangIR, I work on attaching kernel argument metadata to CIR functions and lowering it to LLVM IR. I also contribute crash fixes in MLIR and ClangIR, triage issues, and review tests.
 [Merged PRs](https://github.com/llvm/llvm-project/pulls?q=is%3Apr+author%3AMen-cotton+is%3Amerged+sort%3Aupdated-desc)
 
+## Research interests
+
+- AI for Science and research automation
+- Programming languages built with MLIR
+- AI Safety
+
 ## Experience
 
 ### AC2 Lab (2026–present)
@@ -69,9 +75,6 @@ I teach programming.
 
 ## Interests
 
-- AI for Science and research automation
-- Programming languages built with MLIR
 - Autonomous robots
-- AI safety
 - Dance games
 - Mongolian Tanmen Nakamoto
