@@ -95,7 +95,14 @@ export function ProfilePage({ markdown, locale }: { markdown: string; locale: Lo
       </header>
 
       <section className="profile" id="top">
-        <img src="/profile.png" alt={copy.portrait} width="180" height="180" />
+        <img
+          src="/profile-82d807edf2.webp"
+          alt={copy.portrait}
+          width="180"
+          height="180"
+          decoding="async"
+          fetchPriority="high"
+        />
         <div>
           <p className="role">{frontmatter.role}</p>
           <h1>{frontmatter.name}</h1>
