@@ -63,7 +63,7 @@ h2 { margin: 0 0 30px; font-size: 1.45rem; line-height: 1.4; letter-spacing: -.0
 .entry p { margin: 0; color: #3f4851; }
 .experience-detail > a { display: inline-block; margin-top: 4px; font-size: .9rem; }
 .work-entry { grid-template-columns: minmax(0, 1fr) auto; }
-.entry-links { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.entry-links { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; padding-top: 1.6rem; }
 .entry-links > a { white-space: nowrap; font-size: .9rem; }
 
 .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; }
@@ -83,7 +83,7 @@ footer { min-height: 88px; display: flex; align-items: center; justify-content: 
   .profile { grid-template-columns: 1fr; gap: 28px; padding: 48px 0; }
   .profile > img { width: 128px; height: 128px; }
   .entry, .work-entry { grid-template-columns: 1fr; gap: 8px; }
-  .entry-links { align-items: flex-start; margin-top: 4px; }
+  .entry-links { align-items: flex-start; margin-top: 4px; padding-top: 0; }
   .two-column { grid-template-columns: 1fr; gap: 48px; }
 }
 
