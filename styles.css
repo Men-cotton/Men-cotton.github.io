@@ -64,6 +64,9 @@ h2 { margin: 0 0 var(--section-space); font-size: 1.45rem; line-height: 1.4; let
 .entry:last-child { padding-bottom: 0; }
 .entry h3 { margin: 0; font-size: 1rem; line-height: 1.6; }
 .entry p { margin: 0; color: #3f4851; }
+.entry p + p { margin-top: 12px; }
+.section-intro { max-width: 760px; margin: calc(-1 * var(--section-space) + 2px) 0 var(--section-space); }
+.section-intro p { margin: 0; color: var(--muted); }
 .experience-detail > a { display: inline-block; margin-top: 4px; font-size: .9rem; }
 .work-entry { grid-template-columns: minmax(0, 1fr) var(--entry-links-width); }
 .entry-links { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; padding-top: 1.6rem; }

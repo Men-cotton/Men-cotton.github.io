@@ -24,7 +24,7 @@ const copy = {
     languageCode: "ja",
     facts: ["Affiliation", "Lab", "Program"],
     profileLinks: "External profiles",
-    sections: ["Research output", "Software and engineering", "Research interests", "Experience", "Recognition", "Interests", "Contact"],
+    sections: ["Research projects and presentations", "Personal projects and OSS contributions", "Research interests", "Experience", "Recognition", "Interests", "Contact"],
     portrait: "Portrait of Akimasa Watanuki",
     title: "Akimasa Watanuki — High-Performance Computing and Compilers",
     description: "Portfolio of Akimasa Watanuki, a researcher working on high-performance computing and compiler infrastructure.",
@@ -32,14 +32,14 @@ const copy = {
     canonical: `${siteUrl}/`,
   },
   ja: {
-    nav: ["研究実績", "開発実績", "連絡先"],
+    nav: ["研究", "個人開発・OSS", "連絡先"],
     navLabel: "ページ内ナビゲーション",
     language: "English",
     languageHref: "/",
     languageCode: "en",
     facts: ["所属", "研究室", "学年"],
     profileLinks: "外部プロフィール",
-    sections: ["研究実績", "開発実績", "研究の関心", "経歴", "受賞・成績", "関心", "連絡先"],
+    sections: ["研究プロジェクト・発表", "個人開発・OSS貢献", "研究の関心", "経歴", "受賞・成績", "関心", "連絡先"],
     portrait: "綿貫晃雅のポートレート",
     title: "綿貫晃雅 — 高性能計算・コンパイラ",
     description: "高性能計算とコンパイラを研究する綿貫晃雅のポートフォリオ。",
@@ -79,17 +79,22 @@ function parseProfile(markdown) {
 
 function parseEntries(section = "") {
   return section.split(/^### /m).slice(1).map((block) => {
-    const [title, ...lines] = block.split(/\r?\n/).filter(Boolean);
-    const linkLines = lines.filter((line) => /^\[.+\]\(https?:\/\/.+\)$/.test(line));
+    const [title, ...lines] = block.split(/\r?\n/);
+    const linkLines = lines.filter((line) => /^\[.+\]\(https?:\/\/.+\)$/.test(line.trim()));
+    const description = lines.filter((line) => !linkLines.includes(line)).join("\n").trim();
     return {
       title: title.trim(),
-      description: lines.filter((line) => !linkLines.includes(line)).join(" ").trim(),
+      description: description.split(/\r?\n\s*\r?\n/).map((paragraph) => paragraph.replace(/\r?\n/g, " ").trim()).filter(Boolean),
       links: linkLines.flatMap((line) => {
-        const match = line.match(/^\[(.+)\]\((https?:\/\/.+)\)$/);
+        const match = line.trim().match(/^\[(.+)\]\((https?:\/\/.+)\)$/);
         return match ? [{ label: match[1], href: match[2] }] : [];
       }),
     };
   });
+}
+
+function parseSectionIntro(section = "") {
+  return section.split(/^### /m)[0].trim().split(/\r?\n\s*\r?\n/).map((paragraph) => paragraph.replace(/\r?\n/g, " ").trim()).filter(Boolean);
 }
 
 function parseBullets(section = "") {
@@ -107,7 +112,7 @@ function externalLink(href, label) {
 function renderWorkEntries(entries) {
   return entries.map((item) => `
           <article class="entry work-entry">
-            <div><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.description)}</p></div>
+            <div><h3>${escapeHtml(item.title)}</h3>${item.description.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("")}</div>
             ${item.links.length ? `<div class="entry-links">${item.links.map((link) => externalLink(link.href, link.label)).join("")}</div>` : ""}
           </article>`).join("");
 }
@@ -116,7 +121,7 @@ function renderExperience(entries) {
   return entries.map((item) => `
           <article class="entry">
             <h3>${escapeHtml(item.title)}</h3>
-            <div class="experience-detail"><p>${escapeHtml(item.description)}</p>${item.links.map((link) => externalLink(link.href, link.label)).join("")}</div>
+            <div class="experience-detail">${item.description.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("")}${item.links.map((link) => externalLink(link.href, link.label)).join("")}</div>
           </article>`).join("");
 }
 
@@ -130,6 +135,7 @@ function renderPage(markdown, locale, css) {
   const researchOutput = parseEntries(sections.get(labels.sections[0]));
   const developmentWork = parseEntries(sections.get(labels.sections[1]));
   const researchInterests = parseEntries(sections.get(labels.sections[2]));
+  const researchInterestsIntro = parseSectionIntro(sections.get(labels.sections[2]));
   const experience = parseEntries(sections.get(labels.sections[3]));
   const achievements = parseBullets(sections.get(labels.sections[4]));
   const interests = parseBullets(sections.get(labels.sections[5]));
@@ -200,6 +206,7 @@ function renderPage(markdown, locale, css) {
 
     <section class="section research-interests" id="research-interests">
       <h2>${escapeHtml(labels.sections[2])}</h2>
+      ${researchInterestsIntro.length ? `<div class="section-intro">${researchInterestsIntro.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("")}</div>` : ""}
       <div class="entry-list">${renderWorkEntries(researchInterests)}
       </div>
     </section>
