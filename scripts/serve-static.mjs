@@ -5,17 +5,17 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const clientDir = path.join(root, "dist", "client");
+const outputDir = path.join(root, "dist");
 const port = Number.parseInt(process.env.PORT || "3000", 10);
 const portraitRoute = "/_media/profile-82d807edf2.webp";
 
 const routes = new Map([
   ["/", "index.html"],
   ["/index.html", "index.html"],
-  ["/ja", "ja.html"],
-  ["/ja/", "ja.html"],
+  ["/ja", "ja/index.html"],
+  ["/ja/", "ja/index.html"],
   ["/ja.html", "ja.html"],
-  [portraitRoute, "profile-82d807edf2.webp"],
+  [portraitRoute, "_media/profile-82d807edf2.webp"],
 ]);
 
 const types = new Map([
@@ -26,9 +26,9 @@ const types = new Map([
 const server = http.createServer(async (request, response) => {
   const pathname = new URL(request.url || "/", "http://localhost").pathname;
   const relative = routes.get(pathname) || "404.html";
-  const file = path.resolve(clientDir, relative);
+  const file = path.resolve(outputDir, relative);
 
-  if (!file.startsWith(`${clientDir}${path.sep}`)) {
+  if (!file.startsWith(`${outputDir}${path.sep}`)) {
     response.writeHead(400).end();
     return;
   }

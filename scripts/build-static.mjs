@@ -5,8 +5,8 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
-const clientDir = path.join(dist, "client");
-const serverDir = path.join(dist, "server");
+const japaneseDir = path.join(dist, "ja");
+const mediaDir = path.join(dist, "_media");
 const portraitFile = "profile-82d807edf2.webp";
 const portraitRoute = `/_media/${portraitFile}`;
 const siteUrl = "https://men-cotton.github.io";
@@ -278,33 +278,22 @@ if (!portraitHash.startsWith("82d807edf2")) {
 }
 
 await rm(dist, { recursive: true, force: true });
-await Promise.all([mkdir(clientDir, { recursive: true }), mkdir(serverDir, { recursive: true })]);
-
-const headers = `# The portrait URL contains its content hash.\n/${portraitFile}\n  Cache-Control: public, max-age=31536000, immutable\n`;
-const notFound = `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Page not found</title><style>${css}</style><body><main><section class="profile"><div><h1>Page not found</h1><p><a href="/">Return home</a></p></div></section></main></body></html>\n`;
-const wrangler = {
-  name: "akimasa-watanuki-portfolio",
-  compatibility_date: "2026-05-15",
-  main: "index.js",
-  no_bundle: true,
-  rules: [{ type: "ESModule", globs: ["**/*.js", "**/*.mjs"] }],
-  assets: {
-    binding: "ASSETS",
-    directory: "../client",
-    html_handling: "auto-trailing-slash",
-    not_found_handling: "404-page",
-    run_worker_first: ["/_media/*"],
-  },
-};
-
 await Promise.all([
-  writeFile(path.join(clientDir, "index.html"), renderPage(englishMarkdown, "en", css)),
-  writeFile(path.join(clientDir, "ja.html"), renderPage(japaneseMarkdown, "ja", css)),
-  writeFile(path.join(clientDir, "404.html"), notFound),
-  writeFile(path.join(clientDir, "_headers"), headers),
-  cp(path.join(root, "public", portraitFile), path.join(clientDir, portraitFile)),
-  cp(path.join(root, "worker", "index.js"), path.join(serverDir, "index.js")),
-  writeFile(path.join(serverDir, "wrangler.json"), `${JSON.stringify(wrangler)}\n`),
+  mkdir(japaneseDir, { recursive: true }),
+  mkdir(mediaDir, { recursive: true }),
 ]);
 
-console.log("Built static HTML pages: / and /ja");
+const notFound = `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Page not found</title><style>${css}</style><body><main><section class="profile"><div><h1>Page not found</h1><p><a href="/">Return home</a></p></div></section></main></body></html>\n`;
+const englishPage = renderPage(englishMarkdown, "en", css);
+const japanesePage = renderPage(japaneseMarkdown, "ja", css);
+
+await Promise.all([
+  writeFile(path.join(dist, "index.html"), englishPage),
+  writeFile(path.join(dist, "ja.html"), japanesePage),
+  writeFile(path.join(japaneseDir, "index.html"), japanesePage),
+  writeFile(path.join(dist, "404.html"), notFound),
+  writeFile(path.join(dist, ".nojekyll"), ""),
+  cp(path.join(root, "public", portraitFile), path.join(mediaDir, portraitFile)),
+]);
+
+console.log("Built GitHub Pages site: / and /ja/");

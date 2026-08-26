@@ -13,4 +13,4 @@ pnpm install
 pnpm dev
 ```
 
-公開用の生成は `pnpm build` です。出力は `dist/client`、Sites用Workerは `dist/server/index.js` に生成されます。
+公開用の生成は `pnpm build` です。GitHub Pagesへそのまま配置できる静的ファイルが `dist` に生成され、`main` へのpush時にGitHub Actionsが自動で公開します。

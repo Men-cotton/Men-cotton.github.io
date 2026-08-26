@@ -28,22 +28,8 @@ jobs:
           node-version: 24
           package-manager-cache: false
 
-      - name: Select GitHub Actions as Pages source
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh api --method PUT "repos/${GITHUB_REPOSITORY}/pages" -f build_type=workflow
-
       - name: Build static site
         run: node scripts/build-static.mjs
-
-      - name: Prepare GitHub Pages routes
-        shell: bash
-        run: |
-          mkdir -p dist/client/ja dist/client/_media
-          cp dist/client/ja.html dist/client/ja/index.html
-          cp public/profile-82d807edf2.webp dist/client/_media/profile-82d807edf2.webp
-          touch dist/client/.nojekyll
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6
@@ -51,7 +37,7 @@ jobs:
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: dist/client
+          path: dist
           include-hidden-files: true
 
   deploy:
