@@ -28,6 +28,12 @@ jobs:
           node-version: 24
           package-manager-cache: false
 
+      - name: Select GitHub Actions as Pages source
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method PUT "repos/${GITHUB_REPOSITORY}/pages" -f build_type=workflow
+
       - name: Build static site
         run: node scripts/build-static.mjs
 
