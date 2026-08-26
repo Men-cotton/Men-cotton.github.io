@@ -9,7 +9,7 @@ const clientDir = path.join(dist, "client");
 const serverDir = path.join(dist, "server");
 const portraitFile = "profile-82d807edf2.webp";
 const portraitRoute = `/_media/${portraitFile}`;
-const siteUrl = "https://akimasa-watanuki.mencotton.chatgpt.site";
+const siteUrl = "https://men-cotton.github.io";
 
 if (path.dirname(dist) !== root || path.basename(dist) !== "dist") {
   throw new Error(`Refusing to replace unexpected build directory: ${dist}`);
@@ -17,17 +17,17 @@ if (path.dirname(dist) !== root || path.basename(dist) !== "dist") {
 
 const copy = {
   en: {
-    nav: ["Research", "Engineering", "Contact"],
+    nav: ["Research", "Open Source", "Contact"],
     navLabel: "Page navigation",
     language: "日本語",
     languageHref: "/ja",
     languageCode: "ja",
-    facts: ["Affiliation", "Lab", "Program"],
+    facts: ["Affiliation", "Lab", "Status"],
     profileLinks: "External profiles",
-    sections: ["Research projects and presentations", "Personal projects and OSS contributions", "Research interests", "Experience", "Recognition", "Interests", "Contact"],
+    sections: ["Research Projects", "Independent Development and Open-Source Contributions", "Research Interests", "Education", "Work Experience", "Recognition", "Interests", "Contact"],
     portrait: "Portrait of Akimasa Watanuki",
-    title: "Akimasa Watanuki — High-Performance Computing and Compilers",
-    description: "Portfolio of Akimasa Watanuki, a researcher working on high-performance computing and compiler infrastructure.",
+    title: "Akimasa Watanuki — Making AI Computing Beyond GPUs Fast, Easy to Use, and Verifiable",
+    description: "Akimasa Watanuki studies how to make AI computing beyond GPUs fast, easy to use, and verifiable.",
     openGraphLocale: "en_US",
     canonical: `${siteUrl}/`,
   },
@@ -39,10 +39,10 @@ const copy = {
     languageCode: "en",
     facts: ["所属", "研究室", "学年"],
     profileLinks: "外部プロフィール",
-    sections: ["研究プロジェクト・発表", "個人開発・OSS貢献", "研究の関心", "経歴", "受賞・成績", "関心", "連絡先"],
+    sections: ["研究プロジェクト・発表", "個人開発・OSS貢献", "研究の関心", "学歴", "職歴", "受賞・成績", "関心", "連絡先"],
     portrait: "綿貫晃雅のポートレート",
-    title: "綿貫晃雅 — 高性能計算・コンパイラ",
-    description: "高性能計算とコンパイラを研究する綿貫晃雅のポートフォリオ。",
+    title: "綿貫晃雅 — GPU以外でも、AI計算を高速・簡単・検証可能に。",
+    description: "GPU以外でもAI計算を高速・簡単・検証可能にすることを目指す綿貫晃雅のポートフォリオ。",
     openGraphLocale: "ja_JP",
     canonical: `${siteUrl}/ja`,
   },
@@ -98,21 +98,43 @@ function parseSectionIntro(section = "") {
 }
 
 function parseBullets(section = "") {
-  return section.split(/\r?\n/).filter((line) => line.startsWith("- ")).map((line) => {
-    const value = line.slice(2).trim();
+  const roots = [];
+  const parents = [];
+  for (const line of section.split(/\r?\n/)) {
+    const bullet = line.match(/^(\s*)-\s+(.+)$/);
+    if (!bullet) continue;
+    const depth = Math.floor(bullet[1].replaceAll("\t", "  ").length / 2);
+    const value = bullet[2].trim();
     const match = value.match(/^\[(.+)\]\((https?:\/\/.+)\)$/);
-    return match ? { label: match[1], link: match[2] } : { label: value };
-  });
+    const item = match ? { label: match[1], link: match[2], children: [] } : { label: value, children: [] };
+    if (depth === 0 || !parents[depth - 1]) roots.push(item);
+    else parents[depth - 1].children.push(item);
+    parents[depth] = item;
+    parents.length = depth + 1;
+  }
+  return roots;
 }
 
 function externalLink(href, label) {
   return `<a href="${escapeHtml(href)}" target="_blank" rel="noreferrer">${escapeHtml(label)}<span aria-hidden="true"> ↗</span></a>`;
 }
 
+function renderInline(value) {
+  const pattern = /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g;
+  let output = "";
+  let cursor = 0;
+  for (const match of value.matchAll(pattern)) {
+    output += escapeHtml(value.slice(cursor, match.index));
+    output += externalLink(match[2], match[1]);
+    cursor = match.index + match[0].length;
+  }
+  return output + escapeHtml(value.slice(cursor));
+}
+
 function renderWorkEntries(entries) {
   return entries.map((item) => `
           <article class="entry work-entry">
-            <div><h3>${escapeHtml(item.title)}</h3>${item.description.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("")}</div>
+            <div><h3>${escapeHtml(item.title)}</h3>${item.description.map((paragraph) => `<p>${renderInline(paragraph)}</p>`).join("")}</div>
             ${item.links.length ? `<div class="entry-links">${item.links.map((link) => externalLink(link.href, link.label)).join("")}</div>` : ""}
           </article>`).join("");
 }
@@ -121,12 +143,12 @@ function renderExperience(entries) {
   return entries.map((item) => `
           <article class="entry">
             <h3>${escapeHtml(item.title)}</h3>
-            <div class="experience-detail">${item.description.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("")}${item.links.map((link) => externalLink(link.href, link.label)).join("")}</div>
+            <div class="experience-detail">${item.description.map((paragraph) => `<p>${renderInline(paragraph)}</p>`).join("")}${item.links.map((link) => externalLink(link.href, link.label)).join("")}</div>
           </article>`).join("");
 }
 
 function renderBullets(items) {
-  return items.map((item) => `<li>${item.link ? externalLink(item.link, item.label) : escapeHtml(item.label)}</li>`).join("");
+  return items.map((item) => `<li>${item.link ? externalLink(item.link, item.label) : escapeHtml(item.label)}${item.children.length ? `<ul>${renderBullets(item.children)}</ul>` : ""}</li>`).join("");
 }
 
 function renderPage(markdown, locale, css) {
@@ -136,9 +158,10 @@ function renderPage(markdown, locale, css) {
   const developmentWork = parseEntries(sections.get(labels.sections[1]));
   const researchInterests = parseEntries(sections.get(labels.sections[2]));
   const researchInterestsIntro = parseSectionIntro(sections.get(labels.sections[2]));
-  const experience = parseEntries(sections.get(labels.sections[3]));
-  const achievements = parseBullets(sections.get(labels.sections[4]));
-  const interests = parseBullets(sections.get(labels.sections[5]));
+  const education = parseEntries(sections.get(labels.sections[3]));
+  const workExperience = parseEntries(sections.get(labels.sections[4]));
+  const achievements = parseBullets(sections.get(labels.sections[5]));
+  const interests = parseBullets(sections.get(labels.sections[6]));
   const alternateUrl = locale === "en" ? `${siteUrl}/ja` : `${siteUrl}/`;
 
   return `<!doctype html>
@@ -180,6 +203,7 @@ function renderPage(markdown, locale, css) {
         <h1>${escapeHtml(frontmatter.name)}</h1>
         <p class="name-en">${escapeHtml(frontmatter.name_secondary)}</p>
         <p class="summary">${escapeHtml(frontmatter.summary)}</p>
+        <p class="keywords"><span>${escapeHtml(frontmatter.fields_label)}</span>${escapeHtml(frontmatter.fields)}</p>
         <p class="keywords"><span>${escapeHtml(frontmatter.keywords_label)}</span>${escapeHtml(frontmatter.keywords)}</p>
         <dl class="facts">
           <div><dt>${escapeHtml(labels.facts[0])}</dt><dd>${escapeHtml(frontmatter.affiliation)}</dd></div>
@@ -211,21 +235,27 @@ function renderPage(markdown, locale, css) {
       </div>
     </section>
 
-    <section class="section" id="experience">
+    <section class="section" id="education">
       <h2>${escapeHtml(labels.sections[3])}</h2>
-      <div class="entry-list">${renderExperience(experience)}
+      <div class="entry-list">${renderExperience(education)}
+      </div>
+    </section>
+
+    <section class="section" id="experience">
+      <h2>${escapeHtml(labels.sections[4])}</h2>
+      <div class="entry-list">${renderExperience(workExperience)}
       </div>
     </section>
 
     <section class="section two-column">
-      <div class="recognition"><h2>${escapeHtml(labels.sections[4])}</h2><ul>${renderBullets(achievements)}</ul></div>
-      <div><h2>${escapeHtml(labels.sections[5])}</h2><ul>${renderBullets(interests)}</ul></div>
+      <div class="recognition"><h2>${escapeHtml(labels.sections[5])}</h2><ul>${renderBullets(achievements)}</ul></div>
+      <div><h2>${escapeHtml(labels.sections[6])}</h2><ul>${renderBullets(interests)}</ul></div>
     </section>
 
     <section class="section contact" id="contact">
-      <h2>${escapeHtml(labels.sections[6])}</h2>
+      <h2>${escapeHtml(labels.sections[7])}</h2>
       <p>${escapeHtml(frontmatter.contact_before)}${locale === "en" ? " " : ""}<a class="email" href="mailto:${escapeHtml(frontmatter.email)}">${escapeHtml(frontmatter.email)}</a>${escapeHtml(frontmatter.contact_after)}</p>
-      <p>${escapeHtml(frontmatter.casual_contact)} ${externalLink(frontmatter.x, frontmatter.casual_contact_link)}</p>
+      <p>${escapeHtml(frontmatter.casual_contact)} ${externalLink(frontmatter.x, frontmatter.casual_contact_link)}${locale === "en" ? "." : ""}</p>
     </section>
 
     <footer><span>© 2026 Akimasa Watanuki</span><span>Tokyo, Japan</span></footer>

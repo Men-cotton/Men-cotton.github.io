@@ -49,6 +49,7 @@ h1 { margin: 0; font-size: clamp(2.2rem, 6vw, 3.5rem); line-height: 1.2; letter-
 .name-en { margin: 2px 0 22px; color: var(--muted); }
 .summary { max-width: 650px; margin: 0; font-size: 1.05rem; }
 .keywords { margin: 14px 0 0; color: var(--muted); font-size: .88rem; }
+.keywords + .keywords { margin-top: 2px; }
 .keywords span { margin-right: 12px; color: var(--text); font-weight: 650; }
 .facts { margin: 28px 0 0; padding: 0; font-size: .92rem; }
 .facts div { display: grid; grid-template-columns: 74px 1fr; padding: 4px 0; }
@@ -65,7 +66,7 @@ h2 { margin: 0 0 var(--section-space); font-size: 1.45rem; line-height: 1.4; let
 .entry h3 { margin: 0; font-size: 1rem; line-height: 1.6; }
 .entry p { margin: 0; color: #3f4851; }
 .entry p + p { margin-top: 12px; }
-.section-intro { max-width: 760px; margin: calc(-1 * var(--section-space) + 2px) 0 var(--section-space); }
+.section-intro { max-width: calc(100% - var(--entry-links-width) - 32px); margin: calc(-1 * var(--section-space) + 2px) 0 var(--section-space); }
 .section-intro p { margin: 0; color: var(--muted); }
 .experience-detail > a { display: inline-block; margin-top: 4px; font-size: .9rem; }
 .work-entry { grid-template-columns: minmax(0, 1fr) var(--entry-links-width); }
@@ -75,6 +76,7 @@ h2 { margin: 0 0 var(--section-space); font-size: 1.45rem; line-height: 1.4; let
 .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; }
 .two-column ul { margin: 0; padding-left: 1.25rem; }
 .two-column li { margin-bottom: 10px; }
+.two-column li ul { margin-top: 8px; }
 .recognition a { color: inherit; text-decoration-color: transparent; }
 .recognition a:hover, .recognition a:focus-visible { text-decoration-color: currentColor; }
 .recognition a span[aria-hidden="true"] { display: none; }
@@ -90,6 +92,7 @@ footer { min-height: 88px; display: flex; align-items: center; justify-content: 
   .profile > img { width: 128px; height: 128px; }
   .entry, .work-entry { grid-template-columns: 1fr; gap: 8px; }
   .entry-links { align-items: flex-start; margin-top: 4px; padding-top: 0; }
+  .section-intro { max-width: none; }
   .two-column { grid-template-columns: 1fr; gap: 48px; }
 }
 
