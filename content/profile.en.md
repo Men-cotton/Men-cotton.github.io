@@ -2,7 +2,7 @@
 name: Akimasa Watanuki
 name_secondary: 綿貫 晃雅
 role: Making AI computing beyond GPUs fast, easy to use, and verifiable.
-affiliation: Department of Mathematical and Computing Science, School of Computing, Institute of Science Tokyo
+affiliation: Graduate Major in Mathematical and Computing Science, School of Computing, Institute of Science Tokyo
 lab: AC2 Lab
 lab_url: https://www.ac2.scrc.iir.isct.ac.jp/
 advisor: Ryohei Kobayashi
@@ -29,7 +29,7 @@ casual_contact_link: feel free to mention me on X
 ## Research Projects
 
 ### GNN Training and Performance Analysis on Cerebras CS-3
-I implemented a GraphSAGE training workflow on Cerebras CS-3, a system built around the Wafer-Scale Engine (WSE), which spans an entire silicon wafer. The project began as my undergraduate thesis and now continues through performance analysis and implementation work.
+I implemented a GraphSAGE training workflow on Cerebras CS-3, a system built around the Wafer-Scale Engine (WSE), which spans an entire silicon wafer. I began this project as my undergraduate thesis and now continue to analyze its performance and improve the implementation.
 
 Although the GPU machine-learning ecosystem is mature, GNN training does not reduce to the regular dense-matrix operations that GPUs handle well. Each vertex can have a different number of neighbors, producing sparse and irregular aggregation. [Prior work](https://ar5iv.labs.arxiv.org/html/2112.08541) has reported GPU utilization of only about 10% in a typical large-graph training workload using DGL.
 
@@ -42,25 +42,24 @@ I presented these results at SWoPP 2026. I am now determining how much of the ob
 ## Independent Development and Open-Source Contributions
 
 ### ClangIR and MLIR Development in the LLVM Project
-Outside my academic research, I contribute independently to the LLVM Project.
+Outside my academic research, I contribute independently to the LLVM Project. I have earned commit access and continue contributing to ClangIR and MLIR.
 
-In accelerator-oriented languages such as OpenCL C, information including types, address spaces, and kernel arguments must survive compilation; otherwise, later code-generation and runtime components cannot use it.
+I implemented support for representing and generating OpenCL kernel-argument metadata in ClangIR (CIR) and carrying it through MLIR’s LLVM dialect into LLVM IR. These changes have been merged into the LLVM Project.
 
-ClangIR (CIR) is a source-oriented intermediate representation between Clang’s frontend for C, C++, and related languages and LLVM IR, the lower-level representation used closer to machine-code generation. CIR is built on MLIR, a framework for defining intermediate representations for different domains and hardware targets and transforming them in stages.
-
-Using this infrastructure, I implemented support for representing and generating OpenCL kernel-argument metadata in CIR and carrying it through MLIR’s LLVM dialect into LLVM IR. These changes have been merged into the LLVM Project. I also contribute fixes that replace crashes on invalid input with diagnostics and expand regression-test coverage.
+In accelerator-oriented languages such as OpenCL C, source-level information about types, address spaces, and kernel arguments must survive compilation. If this information is lost, downstream code-generation and runtime components may be unable to determine which memory regions kernel arguments refer to, among other problems. CIR is a source-oriented intermediate representation between Clang’s frontend for C, C++, and related languages and LLVM IR, the lower-level representation used closer to machine-code generation. CIR uses MLIR’s infrastructure to transform intermediate representations in stages.
 
 This staged compiler infrastructure lets developers maintain support for multiple accelerators within one transformation framework while preserving and tracking program semantics and metadata throughout lowering. Longer term, I want to connect this compiler-level information with execution records from runtimes and hardware as a basis for verifying AI computation across heterogeneous accelerators.
 [Merged PRs](https://github.com/llvm/llvm-project/pulls?q=is%3Apr+author%3AMen-cotton+is%3Amerged+sort%3Aupdated-desc)
+[Commit access record](https://github.com/llvm/llvm-project/issues/176158)
 
 ## Research Interests
 
 My research focuses on making AI computing beyond GPUs fast, easy to use, and verifiable. Today I work on performance analysis and compiler development for heterogeneous accelerators. Longer term, I aim to connect this work to AI safety by representing computation in a common form and observing how it executes.
 
 ### Making It Fast—Performance Analysis of Heterogeneous AI Accelerators
-I reached the SuperCon finals in all three years of high school and placed third as a first-year student. The contest, co-hosted by Tokyo Institute of Technology and Osaka University, gives finalists several days to optimize programs for a supercomputer, unlike ordinary programming contests that typically allow only a few seconds of CPU time. I became fascinated by how work distribution, communication, and memory access can radically change the runtime of the same algorithm. I made this experience the centerpiece of my admissions application to Tokyo Institute of Technology, now Institute of Science Tokyo, and have continued to pursue high-performance computing there.
+I reached the SuperCon finals in all three years of high school and placed third in my first year of high school. Ordinary programming contests typically give submitted programs only a few seconds of CPU time. At SuperCon, co-hosted by Tokyo Institute of Technology and Osaka University, finalists optimize programs that take minutes to hours to run on a supercomputer. I became fascinated by how work distribution, communication, and memory access can radically change the runtime of the same algorithm. I made this experience the centerpiece of my admissions application to Tokyo Institute of Technology, now Institute of Science Tokyo, and have continued to pursue high-performance computing there.
 
-I now study AI accelerators with very different architectures, including GPUs and WSEs. Rather than treating performance as a single benchmark number, I decompose bottlenecks across hardware and software layers and work toward making new machines usable for researchers. Ultimately, I want to run larger AI and scientific workloads within the same compute and energy budgets, enabling research that is currently limited by scale.
+I now study AI accelerators with very different architectures, including GPUs and WSEs. Rather than treating performance as a single benchmark number, I decompose bottlenecks across hardware and software layers and work toward making it easier for users to use new machines effectively.
 [SuperCon](https://www.supercon.cii.isct.ac.jp/attwiki/index.php)
 
 ### Making It Easier to Program—Compilers and Programming Models
@@ -71,21 +70,21 @@ I therefore aim to build an MLIR-based compiler that lowers a high-level represe
 [MLIR](https://mlir.llvm.org/)
 
 ### Making It Verifiable—AI Safety
-Compute governance seeks to make advanced AI development more accountable by monitoring how large-scale computing resources are used. I am interested in inferring workloads from external signals such as resource use and execution patterns—for example, detecting large-scale LLM training—without inspecting model weights or data. The goal is not to restrict research or software development indiscriminately, but to verify that computation follows agreed policies.
+Compute governance seeks to make advanced AI development more accountable by monitoring how large-scale computing resources are used. I am interested in detecting LLM training runs that exceed an authorized amount of compute by inferring workloads from external signals such as resource use and execution patterns, without inspecting model weights or data. The goal is not to restrict research or software development indiscriminately, but to verify that computation follows agreed policies.
 
-Many current technical proposals focus on GPUs. As AI hardware diversifies, monitoring and verification methods designed around GPUs may not transfer directly. I want to explore how compute governance can extend to WSEs and other accelerators, so that workloads can still be identified and verified as the underlying hardware changes.
+Current workload-detection research has been demonstrated primarily on GPUs. As AI hardware diversifies, monitoring and verification methods designed around GPUs may not transfer directly. I want to explore how compute governance can extend to WSEs and other accelerators, so that workloads can still be identified and verified as the underlying hardware changes.
 [AI risk overview (MIRI)](https://intelligence.org/briefing/)
 [GPU training detection](https://arxiv.org/abs/2606.19262)
 [AI 2027 race scenario](https://ai-2027.com/race)
 
 ## Education
 
-### Institute of Science Tokyo, Master’s Program (April 2026–expected March 2028)
-I am enrolled in the master’s program in the Department of Mathematical and Computing Science and continue the research I began in AC2 Lab as an undergraduate. I also work as a research assistant on a JSPS KAKENHI Grant-in-Aid for Scientific Research (B) project.
+### Institute of Science Tokyo, Master’s Program in Mathematical and Computing Science (April 2026–expected March 2028)
+I am enrolled in the Graduate Major in Mathematical and Computing Science, School of Computing, and, continuing from my undergraduate studies, conduct research under Professor Ryohei Kobayashi in AC2 Lab. I also work as a research assistant on a JSPS KAKENHI Grant-in-Aid for Scientific Research (B) project.
 [“Wafer-scale computing to accelerate graph-structured data processing” (26K02920)](https://kaken.nii.ac.jp/en/grant/KAKENHI-PROJECT-26K02920/)
 
-### Institute of Science Tokyo, Bachelor’s Program (April 2022–March 2026)
-I entered Tokyo Institute of Technology and completed the bachelor’s program in the Department of Mathematical and Computing Science at Institute of Science Tokyo following the university merger. In April 2025, I joined AC2 Lab, led by Professor Ryohei Kobayashi.
+### Institute of Science Tokyo, B.S. in Mathematical and Computing Science (April 2022–March 2026)
+I entered Tokyo Institute of Technology and completed the Undergraduate Major in Mathematical and Computing Science, School of Computing, at Institute of Science Tokyo following the university merger. In April 2025, I joined AC2 Lab under Professor Ryohei Kobayashi. My undergraduate thesis began the GraphSAGE training project on Cerebras CS-3 described above.
 
 ## Work Experience
 
