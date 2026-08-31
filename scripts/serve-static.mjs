@@ -12,10 +12,13 @@ const portraitRoute = "/_media/profile-82d807edf2.webp";
 const routes = new Map([
   ["/", "index.html"],
   ["/index.html", "index.html"],
-  ["/ja", "ja/index.html"],
   ["/ja/", "ja/index.html"],
+  ["/ja/index.html", "ja/index.html"],
   ["/ja.html", "ja.html"],
   ["/cv-llt.pdf", "cv-llt.pdf"],
+  ["/sitemap.xml", "sitemap.xml"],
+  ["/robots.txt", "robots.txt"],
+  ["/googlefca8208491e66f3b.html", "googlefca8208491e66f3b.html"],
   [portraitRoute, "_media/profile-82d807edf2.webp"],
 ]);
 
@@ -23,10 +26,18 @@ const types = new Map([
   [".html", "text/html; charset=utf-8"],
   [".webp", "image/webp"],
   [".pdf", "application/pdf"],
+  [".xml", "application/xml; charset=utf-8"],
+  [".txt", "text/plain; charset=utf-8"],
 ]);
 
 const server = http.createServer(async (request, response) => {
-  const pathname = new URL(request.url || "/", "http://localhost").pathname;
+  const url = new URL(request.url || "/", "http://localhost");
+  const pathname = url.pathname;
+  // Match the trailing-slash redirect used for directories on GitHub Pages.
+  if (pathname === "/ja") {
+    response.writeHead(301, { Location: `/ja/${url.search}` }).end();
+    return;
+  }
   const relative = routes.get(pathname) || "404.html";
   const file = path.resolve(outputDir, relative);
 
@@ -51,5 +62,5 @@ const server = http.createServer(async (request, response) => {
 });
 
 server.listen(port, "127.0.0.1", () => {
-  console.log(`Static site running at http://127.0.0.1:${port}/`);
+  console.log(`Static site running at http://127.0.0.1:${server.address().port}/`);
 });

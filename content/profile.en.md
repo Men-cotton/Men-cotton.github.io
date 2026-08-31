@@ -1,8 +1,13 @@
 ---
 name: Akimasa Watanuki
 name_secondary: 綿貫 晃雅
+handle: Men-cotton
+title: Akimasa Watanuki (Men-cotton) | AI Accelerators and HPC
+description: Akimasa Watanuki (Men-cotton) at Institute of Science Tokyo / AC2 Lab studies GNN training on Cerebras WSE and contributes OpenCL support to ClangIR in the LLVM Project.
+updated: 2026-08-31
 role: Making AI computing beyond GPUs fast, easy to use, and verifiable.
 affiliation: Graduate Major in Mathematical and Computing Science, School of Computing, Institute of Science Tokyo
+institution: Institute of Science Tokyo
 lab: AC2 Lab
 lab_url: https://www.ac2.scrc.iir.isct.ac.jp/
 advisor: Ryohei Kobayashi

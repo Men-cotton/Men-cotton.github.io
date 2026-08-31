@@ -32,6 +32,9 @@ jobs:
       - name: Build static site
         run: node scripts/build-static.mjs
 
+      - name: Test static site
+        run: node --test
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6
 

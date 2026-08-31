@@ -10,6 +10,7 @@ const mediaDir = path.join(dist, "_media");
 const portraitFile = "profile-82d807edf2.webp";
 const portraitRoute = `/_media/${portraitFile}`;
 const cvFile = "cv-llt.pdf";
+const googleVerificationFile = "googlefca8208491e66f3b.html";
 const cvRoute = `/${cvFile}`;
 const siteUrl = "https://men-cotton.github.io";
 
@@ -22,14 +23,13 @@ const copy = {
     nav: ["Research", "Open Source", "Contact"],
     navLabel: "Page navigation",
     language: "日本語",
-    languageHref: "/ja",
+    languageHref: "/ja/",
     languageCode: "ja",
     facts: ["Affiliation", "Lab", "Status"],
     profileLinks: "CV and external profiles",
     sections: ["Research Projects", "Independent Development and Open-Source Contributions", "Research Interests", "Education", "Work Experience", "Recognition", "Interests", "Contact"],
     portrait: "Portrait of Akimasa Watanuki",
-    title: "Akimasa Watanuki — Making AI Computing Beyond GPUs Fast, Easy to Use, and Verifiable",
-    description: "Akimasa Watanuki studies how to make AI computing beyond GPUs fast, easy to use, and verifiable.",
+    updatedLabel: "Last updated",
     openGraphLocale: "en_US",
     canonical: `${siteUrl}/`,
   },
@@ -43,10 +43,9 @@ const copy = {
     profileLinks: "CV・外部プロフィール",
     sections: ["研究プロジェクト・発表", "個人開発・OSS貢献", "研究の関心", "学歴", "職歴", "受賞・成績", "関心", "連絡先"],
     portrait: "綿貫晃雅のポートレート",
-    title: "綿貫晃雅 — GPU以外でも、AI計算を高速・簡単・検証可能に。",
-    description: "GPU以外でもAI計算を高速・簡単・検証可能にすることを目指す綿貫晃雅のポートフォリオ。",
+    updatedLabel: "最終更新",
     openGraphLocale: "ja_JP",
-    canonical: `${siteUrl}/ja`,
+    canonical: `${siteUrl}/ja/`,
   },
 };
 
@@ -70,6 +69,16 @@ function parseProfile(markdown) {
       return [line.slice(0, separator).trim(), line.slice(separator + 1).trim()];
     }),
   );
+
+  for (const field of ["name", "name_secondary", "handle", "title", "description", "institution", "updated"]) {
+    if (!frontmatter[field]) throw new Error(`Profile frontmatter field is missing: ${field}`);
+  }
+  const updatedDate = new Date(frontmatter.updated);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(frontmatter.updated)
+      || !Number.isFinite(updatedDate.getTime())
+      || updatedDate.toISOString().slice(0, 10) !== frontmatter.updated) {
+    throw new Error(`Profile updated must be a real date in YYYY-MM-DD format: ${frontmatter.updated}`);
+  }
 
   const sections = new Map();
   for (const part of match[2].split(/^## /m).slice(1)) {
@@ -153,9 +162,65 @@ function renderBullets(items) {
   return items.map((item) => `<li>${item.link ? externalLink(item.link, item.label) : escapeHtml(item.label)}${item.children.length ? `<ul>${renderBullets(item.children)}</ul>` : ""}</li>`).join("");
 }
 
-function renderPage(markdown, locale, css) {
+function renderStructuredData(frontmatter, locale, identity) {
+  const canonical = copy[locale].canonical;
+  const personId = `${siteUrl}/#person`;
+  const websiteId = `${siteUrl}/#website`;
+  const data = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": websiteId,
+        url: copy.en.canonical,
+        ...identity,
+        inLanguage: ["en", "ja"],
+        publisher: { "@id": personId },
+      },
+      {
+        "@type": "ProfilePage",
+        "@id": `${canonical}#profile`,
+        url: canonical,
+        name: frontmatter.title,
+        description: frontmatter.description,
+        inLanguage: locale,
+        dateModified: frontmatter.updated,
+        isPartOf: { "@id": websiteId },
+        mainEntity: { "@id": personId },
+      },
+      {
+        "@type": "Person",
+        "@id": personId,
+        ...identity,
+        url: copy.en.canonical,
+        image: `${siteUrl}${portraitRoute}`,
+        description: frontmatter.summary,
+        affiliation: [
+          { "@type": "Organization", name: frontmatter.institution },
+          { "@type": "Organization", name: frontmatter.lab, url: frontmatter.lab_url },
+        ],
+        sameAs: [frontmatter.github, frontmatter.linkedin, frontmatter.atcoder, frontmatter.x],
+      },
+    ],
+  };
+  // JSON in a script data block must not be able to close the surrounding tag.
+  return JSON.stringify(data).replaceAll("<", "\\u003c");
+}
+
+function renderSitemap(profiles) {
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${Object.entries(profiles).map(([locale, { frontmatter }]) => `  <url>
+    <loc>${escapeHtml(copy[locale].canonical)}</loc>
+    <lastmod>${frontmatter.updated}</lastmod>
+  </url>`).join("\n")}
+</urlset>
+`;
+}
+
+function renderPage(profile, locale, css, identity) {
   const labels = copy[locale];
-  const { frontmatter, sections } = parseProfile(markdown);
+  const { frontmatter, sections } = profile;
   const researchOutput = parseEntries(sections.get(labels.sections[0]));
   const developmentWork = parseEntries(sections.get(labels.sections[1]));
   const researchInterests = parseEntries(sections.get(labels.sections[2]));
@@ -164,26 +229,30 @@ function renderPage(markdown, locale, css) {
   const workExperience = parseEntries(sections.get(labels.sections[4]));
   const achievements = parseBullets(sections.get(labels.sections[5]));
   const interests = parseBullets(sections.get(labels.sections[6]));
-  const alternateUrl = locale === "en" ? `${siteUrl}/ja` : `${siteUrl}/`;
 
   return `<!doctype html>
 <html lang="${locale}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${escapeHtml(labels.title)}</title>
-  <meta name="description" content="${escapeHtml(labels.description)}">
+  <title>${escapeHtml(frontmatter.title)}</title>
+  <meta name="description" content="${escapeHtml(frontmatter.description)}">
   <link rel="canonical" href="${labels.canonical}">
-  <link rel="alternate" hreflang="${labels.languageCode}" href="${alternateUrl}">
+  <link rel="alternate" hreflang="en" href="${copy.en.canonical}">
+  <link rel="alternate" hreflang="ja" href="${copy.ja.canonical}">
+  <link rel="alternate" hreflang="x-default" href="${copy.en.canonical}">
   <link rel="preload" href="${portraitRoute}" as="image" type="image/webp" fetchpriority="high">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="${labels.openGraphLocale}">
-  <meta property="og:title" content="${escapeHtml(labels.title)}">
-  <meta property="og:description" content="${escapeHtml(labels.description)}">
+  <meta property="og:locale:alternate" content="${copy[labels.languageCode].openGraphLocale}">
+  <meta property="og:site_name" content="${escapeHtml(identity.name)}">
+  <meta property="og:title" content="${escapeHtml(frontmatter.title)}">
+  <meta property="og:description" content="${escapeHtml(frontmatter.description)}">
   <meta property="og:url" content="${labels.canonical}">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="${escapeHtml(labels.title)}">
-  <meta name="twitter:description" content="${escapeHtml(labels.description)}">
+  <meta name="twitter:title" content="${escapeHtml(frontmatter.title)}">
+  <meta name="twitter:description" content="${escapeHtml(frontmatter.description)}">
+  <script type="application/ld+json">${renderStructuredData(frontmatter, locale, identity)}</script>
   <style>${css}</style>
 </head>
 <body>
@@ -203,7 +272,7 @@ function renderPage(markdown, locale, css) {
       <div>
         <p class="role">${escapeHtml(frontmatter.role)}</p>
         <h1>${escapeHtml(frontmatter.name)}</h1>
-        <p class="name-en">${escapeHtml(frontmatter.name_secondary)}</p>
+        <p class="name-en">${escapeHtml(frontmatter.name_secondary)} / ${escapeHtml(frontmatter.handle)}</p>
         <p class="summary">${escapeHtml(frontmatter.summary)}</p>
         <p class="keywords"><span>${escapeHtml(frontmatter.fields_label)}</span>${escapeHtml(frontmatter.fields)}</p>
         <p class="keywords"><span>${escapeHtml(frontmatter.keywords_label)}</span>${escapeHtml(frontmatter.keywords)}</p>
@@ -261,7 +330,7 @@ function renderPage(markdown, locale, css) {
       <p>${escapeHtml(frontmatter.casual_contact)} ${externalLink(frontmatter.x, frontmatter.casual_contact_link)}${locale === "en" ? "." : ""}</p>
     </section>
 
-    <footer><span>© 2026 Akimasa Watanuki</span><span>Tokyo, Japan</span></footer>
+    <footer><span>© 2026 Akimasa Watanuki</span><span>${labels.updatedLabel}: <time datetime="${frontmatter.updated}">${frontmatter.updated}</time> · Tokyo, Japan</span></footer>
   </main>
 </body>
 </html>
@@ -280,6 +349,34 @@ if (!portraitHash.startsWith("82d807edf2")) {
   throw new Error(`Portrait content no longer matches its versioned filename: ${portraitHash}`);
 }
 
+const profiles = {
+  en: parseProfile(englishMarkdown),
+  ja: parseProfile(japaneseMarkdown),
+};
+if (profiles.en.frontmatter.handle !== profiles.ja.frontmatter.handle) {
+  throw new Error("The English and Japanese profile handles must match.");
+}
+const identity = {
+  name: profiles.en.frontmatter.name,
+  alternateName: [profiles.ja.frontmatter.name.replace(/\s+/g, ""), profiles.en.frontmatter.handle],
+};
+const englishPage = renderPage(profiles.en, "en", css, identity);
+const japanesePage = renderPage(profiles.ja, "ja", css, identity);
+const sitemap = renderSitemap(profiles);
+const robots = `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`;
+const japaneseRedirect = `<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>日本語ページへ移動</title>
+  <link rel="canonical" href="${copy.ja.canonical}">
+  <meta http-equiv="refresh" content="0; url=${copy.ja.canonical}">
+</head>
+<body><p><a href="${copy.ja.canonical}">日本語ページへ移動</a></p></body>
+</html>
+`;
+
 await rm(dist, { recursive: true, force: true });
 await Promise.all([
   mkdir(japaneseDir, { recursive: true }),
@@ -287,17 +384,18 @@ await Promise.all([
 ]);
 
 const notFound = `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Page not found</title><style>${css}</style><body><main><section class="profile"><div><h1>Page not found</h1><p><a href="/">Return home</a></p></div></section></main></body></html>\n`;
-const englishPage = renderPage(englishMarkdown, "en", css);
-const japanesePage = renderPage(japaneseMarkdown, "ja", css);
 
 await Promise.all([
   writeFile(path.join(dist, "index.html"), englishPage),
-  writeFile(path.join(dist, "ja.html"), japanesePage),
+  writeFile(path.join(dist, "ja.html"), japaneseRedirect),
   writeFile(path.join(japaneseDir, "index.html"), japanesePage),
   writeFile(path.join(dist, "404.html"), notFound),
   writeFile(path.join(dist, ".nojekyll"), ""),
+  writeFile(path.join(dist, "sitemap.xml"), sitemap),
+  writeFile(path.join(dist, "robots.txt"), robots),
   cp(path.join(root, "public", portraitFile), path.join(mediaDir, portraitFile)),
   cp(path.join(root, cvFile), path.join(dist, cvFile)),
+  cp(path.join(root, googleVerificationFile), path.join(dist, googleVerificationFile)),
 ]);
 
-console.log(`Built GitHub Pages site: /, /ja/, and ${cvRoute}`);
+console.log(`Built GitHub Pages site: /, /ja/, ${cvRoute}, sitemap.xml, and robots.txt`);

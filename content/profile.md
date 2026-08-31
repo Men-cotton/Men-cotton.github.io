@@ -1,8 +1,13 @@
 ---
 name: 綿貫 晃雅
 name_secondary: Akimasa Watanuki
+handle: Men-cotton
+title: 綿貫晃雅（Men-cotton）| AIアクセラレータと高性能計算
+description: 綿貫晃雅（Men-cotton、東京科学大学 数理・計算科学系／AC2 Lab）のポートフォリオ。Cerebras WSE上のGNN学習・性能解析を研究し、LLVM ProjectのClangIRでOpenCL対応に貢献しています。
+updated: 2026-08-31
 role: GPU以外でも、AI計算を高速・簡単・検証可能に。
 affiliation: 東京科学大学 情報理工学院 数理・計算科学系
+institution: 東京科学大学
 lab: AC2 Lab
 lab_url: https://www.ac2.scrc.iir.isct.ac.jp/
 advisor: 小林諒平先生

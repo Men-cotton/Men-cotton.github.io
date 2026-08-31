@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "node scripts/build-static.mjs && node scripts/serve-static.mjs",
     "build": "node scripts/build-static.mjs",
-    "start": "node scripts/serve-static.mjs"
+    "start": "node scripts/serve-static.mjs",
+    "test": "node --test"
   },
   "type": "module"
 }
