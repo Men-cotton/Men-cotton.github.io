@@ -9,6 +9,8 @@ const japaneseDir = path.join(dist, "ja");
 const mediaDir = path.join(dist, "_media");
 const portraitFile = "profile-82d807edf2.webp";
 const portraitRoute = `/_media/${portraitFile}`;
+const cvFile = "cv-llt.pdf";
+const cvRoute = `/${cvFile}`;
 const siteUrl = "https://men-cotton.github.io";
 
 if (path.dirname(dist) !== root || path.basename(dist) !== "dist") {
@@ -23,7 +25,7 @@ const copy = {
     languageHref: "/ja",
     languageCode: "ja",
     facts: ["Affiliation", "Lab", "Status"],
-    profileLinks: "External profiles",
+    profileLinks: "CV and external profiles",
     sections: ["Research Projects", "Independent Development and Open-Source Contributions", "Research Interests", "Education", "Work Experience", "Recognition", "Interests", "Contact"],
     portrait: "Portrait of Akimasa Watanuki",
     title: "Akimasa Watanuki — Making AI Computing Beyond GPUs Fast, Easy to Use, and Verifiable",
@@ -38,7 +40,7 @@ const copy = {
     languageHref: "/",
     languageCode: "en",
     facts: ["所属", "研究室", "学年"],
-    profileLinks: "外部プロフィール",
+    profileLinks: "CV・外部プロフィール",
     sections: ["研究プロジェクト・発表", "個人開発・OSS貢献", "研究の関心", "学歴", "職歴", "受賞・成績", "関心", "連絡先"],
     portrait: "綿貫晃雅のポートレート",
     title: "綿貫晃雅 — GPU以外でも、AI計算を高速・簡単・検証可能に。",
@@ -211,6 +213,7 @@ function renderPage(markdown, locale, css) {
           <div><dt>${escapeHtml(labels.facts[2])}</dt><dd>${escapeHtml(frontmatter.year)}</dd></div>
         </dl>
         <div class="profile-links" aria-label="${escapeHtml(labels.profileLinks)}">
+          <a href="${cvRoute}" type="application/pdf" target="_blank" rel="noreferrer">CV (PDF)<span aria-hidden="true"> ↗</span></a>
           ${externalLink(frontmatter.github, "GitHub")}${externalLink(frontmatter.linkedin, "LinkedIn")}${externalLink(frontmatter.atcoder, "AtCoder")}${externalLink(frontmatter.x, "X")}
         </div>
       </div>
@@ -294,6 +297,7 @@ await Promise.all([
   writeFile(path.join(dist, "404.html"), notFound),
   writeFile(path.join(dist, ".nojekyll"), ""),
   cp(path.join(root, "public", portraitFile), path.join(mediaDir, portraitFile)),
+  cp(path.join(root, cvFile), path.join(dist, cvFile)),
 ]);
 
-console.log("Built GitHub Pages site: / and /ja/");
+console.log(`Built GitHub Pages site: /, /ja/, and ${cvRoute}`);

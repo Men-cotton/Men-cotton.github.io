@@ -6,6 +6,8 @@ Markdown をコンテンツ源にした、JavaScriptを配信しない静的ポ�
 
 日本語は `content/profile.md`、英語は `content/profile.en.md` にまとめています。文章を更新して `pnpm build` を実行すると、HTMLへ反映されます。
 
+公開する CV はルート直下の `cv-llt.pdf` です。ビルド時に `dist/cv-llt.pdf` へコピーされ、日本語・英語のプロフィール欄の「CV (PDF)」リンクから閲覧できます。更新時はこのファイルを差し替えてください。他のルート直下の PDF は引き続き Git の除外対象です。
+
 ## Development
 
 ```sh

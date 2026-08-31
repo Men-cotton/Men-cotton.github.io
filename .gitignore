@@ -47,3 +47,6 @@ next-env.d.ts
 /resume.md
 /resume1.txt
 /*.pdf
+
+# Public CV linked from the portfolio
+!/cv-llt.pdf

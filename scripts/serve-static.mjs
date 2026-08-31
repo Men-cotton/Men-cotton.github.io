@@ -15,12 +15,14 @@ const routes = new Map([
   ["/ja", "ja/index.html"],
   ["/ja/", "ja/index.html"],
   ["/ja.html", "ja.html"],
+  ["/cv-llt.pdf", "cv-llt.pdf"],
   [portraitRoute, "_media/profile-82d807edf2.webp"],
 ]);
 
 const types = new Map([
   [".html", "text/html; charset=utf-8"],
   [".webp", "image/webp"],
+  [".pdf", "application/pdf"],
 ]);
 
 const server = http.createServer(async (request, response) => {
