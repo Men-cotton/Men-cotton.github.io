@@ -11,15 +11,29 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const temporaryParent = path.resolve(os.tmpdir());
 const origin = "https://men-cotton.github.io";
 const googleVerificationFile = "googlefca8208491e66f3b.html";
+const gitCommitDate = "2024-06-15T10:20:30+09:00";
+const defaultLastModified = {
+  en: "2025-02-20T08:15:30+09:00",
+  ja: "2024-02-29T23:59:59Z",
+};
 const pages = [
   { locale: "en", file: "index.html", source: "profile.en.md", url: `${origin}/` },
   { locale: "ja", file: "ja/index.html", source: "profile.md", url: `${origin}/ja/` },
 ];
 let fixture;
 
-function build() {
+function build(environment = {}, useOverrides = true) {
+  const env = { ...process.env };
+  delete env.SITE_LAST_MODIFIED_EN;
+  delete env.SITE_LAST_MODIFIED_JA;
+  if (useOverrides) {
+    env.SITE_LAST_MODIFIED_EN = defaultLastModified.en;
+    env.SITE_LAST_MODIFIED_JA = defaultLastModified.ja;
+  }
+  Object.assign(env, environment);
   return execFileSync(process.execPath, ["scripts/build-static.mjs"], {
     cwd: fixture,
+    env,
     encoding: "utf8",
     stdio: "pipe",
     timeout: 15_000,
@@ -46,6 +60,12 @@ before(async () => {
   fixture = await mkdtemp(path.join(temporaryParent, "portfolio-static-test-"));
   await Promise.all(["scripts", "content", "public", "styles.css", "cv-llt.pdf", googleVerificationFile].map((file) =>
     cp(path.join(root, file), path.join(fixture, file), { recursive: true })));
+  execFileSync("git", ["init", "--quiet"], { cwd: fixture });
+  execFileSync("git", ["add", "--all"], { cwd: fixture });
+  execFileSync("git", ["-c", "user.name=Build Test", "-c", "user.email=build-test@example.invalid", "commit", "--quiet", "-m", "fixture"], {
+    cwd: fixture,
+    env: { ...process.env, GIT_AUTHOR_DATE: gitCommitDate, GIT_COMMITTER_DATE: gitCommitDate },
+  });
   build();
 });
 
@@ -101,8 +121,10 @@ for (const page of pages) {
     assert.equal(profile.isPartOf["@id"], website["@id"]);
     assert.equal(profile.name, field(markdown, "title"));
     assert.equal(profile.description, field(markdown, "description"));
-    assert.equal(profile.dateModified, field(markdown, "updated"));
-    assert.ok(html.includes(`<time datetime="${profile.dateModified}">${profile.dateModified}</time>`));
+    assert.equal(profile.dateModified, defaultLastModified[page.locale]);
+    assert.match(profile.dateModified, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})$/);
+    assert.ok(Number.isFinite(Date.parse(profile.dateModified)));
+    assert.ok(html.includes(`<time datetime="${profile.dateModified}">${profile.dateModified.slice(0, 10)}</time>`));
     assert.equal(person["@id"], `${origin}/#person`);
     assert.equal(person.name, "Akimasa Watanuki");
     assert.deepEqual(person.alternateName, ["綿貫晃雅", "Men-cotton"]);
@@ -125,9 +147,8 @@ test("sitemap lists only the two canonical pages and robots allows crawling", as
   assert.ok(sitemap.startsWith('<?xml version="1.0" encoding="UTF-8"?>\n'));
   assert.ok(sitemap.includes('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'));
   assert.deepEqual([...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]), pages.map((page) => page.url));
-  const updated = await Promise.all(pages.map(async (page) =>
-    field(await readFile(path.join(fixture, "content", page.source), "utf8"), "updated")));
-  assert.deepEqual([...sitemap.matchAll(/<lastmod>(.*?)<\/lastmod>/g)].map((match) => match[1]), updated);
+  assert.deepEqual([...sitemap.matchAll(/<lastmod>(.*?)<\/lastmod>/g)].map((match) => match[1]),
+    pages.map((page) => defaultLastModified[page.locale]));
   assert.doesNotMatch(sitemap, /ja\.html|index\.html|404|priority|changefreq/);
   assert.equal(await output("robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${origin}/sitemap.xml\n`);
 });
@@ -150,43 +171,34 @@ test("Google verification file is copied byte-for-byte and excluded from the sit
   assert.ok(!(await output("sitemap.xml")).includes(googleVerificationFile));
 });
 
-test("rebuilding without content changes produces identical output", async () => {
-  const files = ["index.html", "ja/index.html", "ja.html", "sitemap.xml", "robots.txt"];
-  const firstBuild = await Promise.all(files.map(output));
+test("lastmod and dateModified follow each profile's supplied commit date, not the build clock", async () => {
   build();
-  assert.deepEqual(await Promise.all(files.map(output)), firstBuild);
-});
-
-test("lastmod and dateModified follow each source independently, not the build clock", async () => {
-  const dates = ["2025-02-20", "2024-02-29"];
-  const originals = await Promise.all(pages.map((page) => readFile(path.join(fixture, "content", page.source), "utf8")));
-  try {
-    await Promise.all(pages.map((page, index) => writeFile(path.join(fixture, "content", page.source),
-      originals[index].replace(/^updated: .+$/m, `updated: ${dates[index]}`))));
-    build();
-    const sitemap = await output("sitemap.xml");
-    assert.deepEqual([...sitemap.matchAll(/<lastmod>(.*?)<\/lastmod>/g)].map((match) => match[1]), dates);
-    for (const [index, page] of pages.entries()) {
-      assert.equal(structuredData(await output(page.file))["@graph"][1].dateModified, dates[index]);
-    }
-  } finally {
-    await Promise.all(pages.map((page, index) => writeFile(path.join(fixture, "content", page.source), originals[index])));
-    build();
+  const sitemap = await output("sitemap.xml");
+  assert.deepEqual([...sitemap.matchAll(/<lastmod>(.*?)<\/lastmod>/g)].map((match) => match[1]),
+    pages.map((page) => defaultLastModified[page.locale]));
+  for (const page of pages) {
+    assert.equal(structuredData(await output(page.file))["@graph"][1].dateModified,
+      defaultLastModified[page.locale]);
   }
 });
 
-test("invalid update dates fail before replacing the last successful build", async () => {
-  const source = path.join(fixture, "content", "profile.en.md");
-  const original = await readFile(source, "utf8");
+test("a normal build derives the timestamp from Git history", async () => {
+  build({}, false);
+  for (const page of pages) {
+    assert.equal(structuredData(await output(page.file))["@graph"][1].dateModified, gitCommitDate);
+  }
+  build();
+});
+
+test("invalid commit dates fail before replacing the last successful build", async () => {
   const sitemap = await output("sitemap.xml");
-  try {
-    for (const updated of ["", "not-a-date", "2026-02-29", "2026-02-30", "2026-13-01", "2026-8-31", "2026-08-31T00:00:00Z"]) {
-      await writeFile(source, original.replace(/^updated: .+$/m, `updated: ${updated}`));
-      assert.throws(build, /updated/);
-      assert.equal(await output("sitemap.xml"), sitemap);
-    }
-  } finally {
-    await writeFile(source, original);
+  for (const updated of [
+    "", "not-a-date", "2026-09-01", "2026-02-29T00:00:00+09:00",
+    "2026-02-30T00:00:00+09:00", "2026-13-01T00:00:00+09:00",
+    "2026-09-01T24:00:00+09:00", "2026-09-01T12:00:00", "2026-09-01T12:00:00+24:00",
+  ]) {
+    assert.throws(() => build({ SITE_LAST_MODIFIED_EN: updated }), /last-modified/);
+    assert.equal(await output("sitemap.xml"), sitemap);
   }
 });
 

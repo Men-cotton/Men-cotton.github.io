@@ -16,7 +16,8 @@ Markdown をコンテンツ源にした、実行用JavaScriptを配信しない�
 
 - `title` / `description`: 検索用メタデータ・Open Graph・X・ProfilePageに共通で使用します。本文のキャッチコピーは `role` のままです。
 - `handle` / `institution`: 本文の実在する別名・所属と一致させます。架空の外部プロフィールは追加しません。
-- `updated`: その言語の本文・リンク・構造化データなどを実質的に更新した日を `YYYY-MM-DD` で記録します。画面の更新日、ProfilePageの `dateModified`、sitemapの `lastmod` に使用します。日付がない・不正な場合はビルドを停止します。ビルドのたびには更新しません。共通の人物情報・構造化データを変更した場合は両言語の日付を更新します。
+
+更新日時はMarkdownへ手入力しません。ビルド時にGit履歴から、各言語のMarkdown・共通のHTML生成処理・プロフィール画像のうち最後に変更されたコミット日時を取得します。画面には日付部分だけを表示し、ProfilePageの `dateModified` とsitemapの `lastmod` にはタイムゾーン付きISO 8601の完全な日時を使用します。このため、内容が変わらない再ビルドだけでは更新日時が変わりません。GitHub Actionsはファイル別の履歴を参照できるよう、全履歴をcheckoutします。
 
 ビルドで `dist/sitemap.xml` と `dist/robots.txt` を生成します。sitemapには2つの正規URLだけを記載し、robotsは全クローラーを許可してsitemapの絶対URLを通知します。検索bot・学習botの個別制限は設けていません。
 

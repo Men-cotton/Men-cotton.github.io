@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { execFileSync } from "node:child_process";
 import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -13,6 +14,10 @@ const cvFile = "cv-llt.pdf";
 const googleVerificationFile = "googlefca8208491e66f3b.html";
 const cvRoute = `/${cvFile}`;
 const siteUrl = "https://men-cotton.github.io";
+const lastModifiedSources = {
+  en: ["content/profile.en.md", "scripts/build-static.mjs", `public/${portraitFile}`],
+  ja: ["content/profile.md", "scripts/build-static.mjs", `public/${portraitFile}`],
+};
 
 if (path.dirname(dist) !== root || path.basename(dist) !== "dist") {
   throw new Error(`Refusing to replace unexpected build directory: ${dist}`);
@@ -70,14 +75,8 @@ function parseProfile(markdown) {
     }),
   );
 
-  for (const field of ["name", "name_secondary", "handle", "title", "description", "institution", "updated"]) {
+  for (const field of ["name", "name_secondary", "handle", "title", "description", "institution"]) {
     if (!frontmatter[field]) throw new Error(`Profile frontmatter field is missing: ${field}`);
-  }
-  const updatedDate = new Date(frontmatter.updated);
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(frontmatter.updated)
-      || !Number.isFinite(updatedDate.getTime())
-      || updatedDate.toISOString().slice(0, 10) !== frontmatter.updated) {
-    throw new Error(`Profile updated must be a real date in YYYY-MM-DD format: ${frontmatter.updated}`);
   }
 
   const sections = new Map();
@@ -86,6 +85,48 @@ function parseProfile(markdown) {
     sections.set(heading.trim(), lines.join("\n").trim());
   }
   return { frontmatter, sections };
+}
+
+function validateDateTime(value, source) {
+  const updatedMatch = value.match(
+    /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:Z|[+-]\d{2}:\d{2})$/,
+  );
+  const updatedParts = updatedMatch?.slice(1, 7).map(Number);
+  const calendarDate = updatedParts ? new Date(Date.UTC(
+    updatedParts[0], updatedParts[1] - 1, updatedParts[2],
+    updatedParts[3], updatedParts[4], updatedParts[5],
+  )) : null;
+  const calendarParts = calendarDate ? [
+    calendarDate.getUTCFullYear(), calendarDate.getUTCMonth() + 1, calendarDate.getUTCDate(),
+    calendarDate.getUTCHours(), calendarDate.getUTCMinutes(), calendarDate.getUTCSeconds(),
+  ] : [];
+  if (!updatedParts
+      || !Number.isFinite(Date.parse(value))
+      || !updatedParts.every((part, index) => part === calendarParts[index])) {
+    throw new Error(`Profile last-modified value from ${source} must be a real ISO 8601 date-time including a timezone: ${value}`);
+  }
+  return value;
+}
+
+function resolveLastModified(locale) {
+  const environmentName = `SITE_LAST_MODIFIED_${locale.toUpperCase()}`;
+  const override = process.env[environmentName];
+  if (override !== undefined) return validateDateTime(override, environmentName);
+
+  try {
+    const value = execFileSync(
+      "git",
+      ["log", "-1", "--format=%cI", "--", ...lastModifiedSources[locale]],
+      { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] },
+    ).trim();
+    if (!value) throw new Error("Git returned no matching commit.");
+    return validateDateTime(value, `Git history for ${locale}`);
+  } catch (error) {
+    throw new Error(
+      `Cannot determine the ${locale} profile's last modification. Build from a full Git checkout or set ${environmentName}.`,
+      { cause: error },
+    );
+  }
 }
 
 function parseEntries(section = "") {
@@ -162,7 +203,7 @@ function renderBullets(items) {
   return items.map((item) => `<li>${item.link ? externalLink(item.link, item.label) : escapeHtml(item.label)}${item.children.length ? `<ul>${renderBullets(item.children)}</ul>` : ""}</li>`).join("");
 }
 
-function renderStructuredData(frontmatter, locale, identity) {
+function renderStructuredData(frontmatter, locale, identity, lastModified) {
   const canonical = copy[locale].canonical;
   const personId = `${siteUrl}/#person`;
   const websiteId = `${siteUrl}/#website`;
@@ -184,7 +225,7 @@ function renderStructuredData(frontmatter, locale, identity) {
         name: frontmatter.title,
         description: frontmatter.description,
         inLanguage: locale,
-        dateModified: frontmatter.updated,
+        dateModified: lastModified,
         isPartOf: { "@id": websiteId },
         mainEntity: { "@id": personId },
       },
@@ -207,18 +248,18 @@ function renderStructuredData(frontmatter, locale, identity) {
   return JSON.stringify(data).replaceAll("<", "\\u003c");
 }
 
-function renderSitemap(profiles) {
+function renderSitemap(lastModified) {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${Object.entries(profiles).map(([locale, { frontmatter }]) => `  <url>
+${Object.entries(lastModified).map(([locale, modified]) => `  <url>
     <loc>${escapeHtml(copy[locale].canonical)}</loc>
-    <lastmod>${frontmatter.updated}</lastmod>
+    <lastmod>${modified}</lastmod>
   </url>`).join("\n")}
 </urlset>
 `;
 }
 
-function renderPage(profile, locale, css, identity) {
+function renderPage(profile, locale, css, identity, lastModified) {
   const labels = copy[locale];
   const { frontmatter, sections } = profile;
   const researchOutput = parseEntries(sections.get(labels.sections[0]));
@@ -252,7 +293,7 @@ function renderPage(profile, locale, css, identity) {
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="${escapeHtml(frontmatter.title)}">
   <meta name="twitter:description" content="${escapeHtml(frontmatter.description)}">
-  <script type="application/ld+json">${renderStructuredData(frontmatter, locale, identity)}</script>
+  <script type="application/ld+json">${renderStructuredData(frontmatter, locale, identity, lastModified)}</script>
   <style>${css}</style>
 </head>
 <body>
@@ -330,7 +371,7 @@ function renderPage(profile, locale, css, identity) {
       <p>${escapeHtml(frontmatter.casual_contact)} ${externalLink(frontmatter.x, frontmatter.casual_contact_link)}${locale === "en" ? "." : ""}</p>
     </section>
 
-    <footer><span>© 2026 Akimasa Watanuki</span><span>${labels.updatedLabel}: <time datetime="${frontmatter.updated}">${frontmatter.updated}</time> · Tokyo, Japan</span></footer>
+    <footer><span>© 2026 Akimasa Watanuki</span><span>${labels.updatedLabel}: <time datetime="${lastModified}">${lastModified.slice(0, 10)}</time> · Tokyo, Japan</span></footer>
   </main>
 </body>
 </html>
@@ -360,9 +401,13 @@ const identity = {
   name: profiles.en.frontmatter.name,
   alternateName: [profiles.ja.frontmatter.name.replace(/\s+/g, ""), profiles.en.frontmatter.handle],
 };
-const englishPage = renderPage(profiles.en, "en", css, identity);
-const japanesePage = renderPage(profiles.ja, "ja", css, identity);
-const sitemap = renderSitemap(profiles);
+const lastModified = {
+  en: resolveLastModified("en"),
+  ja: resolveLastModified("ja"),
+};
+const englishPage = renderPage(profiles.en, "en", css, identity, lastModified.en);
+const japanesePage = renderPage(profiles.ja, "ja", css, identity, lastModified.ja);
+const sitemap = renderSitemap(lastModified);
 const robots = `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`;
 const japaneseRedirect = `<!doctype html>
 <html lang="ja">
