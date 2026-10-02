@@ -101,8 +101,8 @@ I built a property comparison app with React and a real-estate API in a team hac
 ### Fixstars (March–April 2024)
 I built a CUDA stereo-matching pipeline, measured its runtime with Nsight Systems and Nsight Compute, and optimized bottleneck operations.
 
-### TSUKURIUM (February 2023–present)
-I teach programming, helping children develop computational thinking through Python.
+### TSUKURIUM (February 2023–September 2026)
+I taught programming, helping children develop computational thinking through Python.
 
 ## Recognition
 
